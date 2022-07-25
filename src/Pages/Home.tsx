@@ -1,9 +1,27 @@
-import React from 'react'
+import axios from "axios";
+import React, { FC, useEffect, useState } from "react";
+import UserList from "../Components/UserList";
+import { IUser } from "../types/types";
 
-function Home() {
-  return (
-    <div>Home</div>
-  )
+interface HomeProps {
+    height?: string;
+    width?: string;
+    onClick: () => void;
 }
 
-export default Home
+const Home: FC<HomeProps> = ({ width, height }) => {
+    const [users, setUser] = useState<IUser[]>([]);
+    useEffect(() => {
+        axios
+            .get<IUser[]>("https://jsonplaceholder.typicode.com/users")
+            .then((res) => setUser(res.data));
+    }, []);
+
+    return (
+        <div>
+            <UserList users={users} />
+        </div>
+    );
+};
+
+export default Home;
