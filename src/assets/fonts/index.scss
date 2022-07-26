@@ -1,0 +1,14 @@
+/* jost-100 - latin */
+@font-face {
+    font-family: "Jost";
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url("./jost-v14-latin-100.eot");
+    src: local(""),
+        url("./jost-v14-latin-100.eot?#iefix") format("embedded-opentype"),
+        url("./jost-v14-latin-100.woff2") format("woff2"),
+        url("./jost-v14-latin-100.woff") format("woff"),
+        url("./jost-v14-latin-100.ttf") format("truetype"),
+        url("./jost-v14-latin-100.svg#Jost") format("svg");
+}
