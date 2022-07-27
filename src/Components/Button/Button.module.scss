@@ -1,5 +1,3 @@
-
-
 .button {
     border-radius: 10px;
     background: rgba(255, 255, 255, 1);
@@ -9,14 +7,32 @@
     font-size: 12px;
     padding: 10px;
     width: 100%;
+    font-family: Jost;
+    font-size: 12px;
+    font-weight: 500;
+    height: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: 0.5s;
     &:hover {
         background-color: #fbe0dc;
-        transition: 0.5s;
         cursor: pointer;
+        transition: 0.5s;
     }
-
-
 }
+.secondButton {
+    background: #fbe0dc;
+    color: #ff868e;
+    font-weight: 600;
+    width: 150px;
+    transition: 0.5s;
+    &:hover {
+        background: #ff868e;
+        color: #fff;
+        transition: 0.5s;
+    }
+}
+
 .active {
     background-color: #ff868e;
     color: white;
@@ -26,4 +42,10 @@
     font-size: 12px;
     padding: 10px;
     width: 100%;
+    font-family: Jost;
+    font-size: 12px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 1.33;
+    letter-spacing: 2px;
 }

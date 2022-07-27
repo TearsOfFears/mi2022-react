@@ -39,10 +39,9 @@ const Navigation: FC = () => {
     const handleNavigate  = (link:string)=>{
         navigate(link)
     }
-    console.log(location.pathname);
     
     return (
-        <Grid item xs={5}>
+        <Grid item xs={4}>
             <Grid container flexDirection="column" className={styles.root}>
                 <div>
                     <img src={Logo} />

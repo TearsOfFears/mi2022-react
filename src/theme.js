@@ -15,7 +15,11 @@ export const theme = createTheme({
       default: "#F8F8F7"
     },
     primary: {
-      main: "#4361ee",
+      main: '#ff868e',
+      light:"#FBE0DC",
+    },
+    secondary: {
+      main: '#fff',
     },
   },
   typography: {
