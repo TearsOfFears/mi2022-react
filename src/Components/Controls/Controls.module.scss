@@ -1,0 +1,53 @@
+.rootVoting {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+}
+
+.rootBreeds {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.selectMenu {
+    border: none;
+    background-color: #f8f8f7;
+    border-radius: 10px !important;
+    padding: 5px 10px;
+    border: 2px solid transparent;
+    transition: 0.5s;
+    font-family: Jost;
+    font-size: 16px;
+    height: 40px;
+    color: #8c8c8c;
+    width: 225px;
+    &:hover {
+        border: 2px solid #fbe0dc;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+    &:focus{
+        border: 2px solid #fbe0dc !important;
+        transition: 0.5s;
+    }
+    &:focus-visible{
+        border: 2px solid #fbe0dc !important;
+        transition: 0.5s;
+        outline: none;
+    }
+}
+
+option {
+    background-color: #fff;
+    border:1px solid transparent;
+    border-radius:30px;
+}
+
+.rootGallery {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+}

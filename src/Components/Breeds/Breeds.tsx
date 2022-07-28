@@ -7,28 +7,43 @@ import styles from "./Breeds.module.scss";
 import { ReactComponent as BackArrow } from "./../../assets/icons/backArrow.svg";
 import { Button } from "../Button/Button";
 import { theme } from "../../theme";
+import Controls from "../Controls/Controls";
+import axios, { AxiosResponse } from "axios";
+import { useQuery } from "@tanstack/react-query";
+
+interface Breeds {
+    name: string;
+}
+interface GetBreedProps {
+    data: Breeds[];
+}
 const Breeds = () => {
     const handleClick = () => {};
+    const fetchCats = async () => {
+        return await axios
+            .get<GetBreedProps>("https://api.thecatapi.com/v1/breeds")
+            .then((res: AxiosResponse) => {
+                return res.data;
+            });
+    };
+    const cats = useQuery<Breeds[] | any>(["fetch breeds"], () => fetchCats());
     return (
         <SideBlockLayout>
             <Paper className={styles.root}>
-                <div className={styles.wrapperButton}>
-                    <ButtonIcon
-                        size={40}
-                        radius={10}
-                        bgColor={theme.palette.primary.light}
-                    >
-                        <BackArrow />
-                    </ButtonIcon>
-                    <Button
-                        fontWeight={600}
-                        onClick={handleClick}
-                        bgColor={theme.palette.primary.light}
-                        color={theme.palette.primary.main}
-                        width="150px"
-                    >
-                        Breeds
-                    </Button>
+                <Controls breeds={true} />
+                <div className={styles.grid}>
+                    {!cats.isLoading ? (
+                        cats.data.map((data: any, key: number) => {
+                            return (
+                                <div className={styles.item}>
+                                    <img src={data.image?.url} alt="" />
+                                    <h1>{key}</h1>
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <h1>Loading...</h1>
+                    )}
                 </div>
             </Paper>
         </SideBlockLayout>

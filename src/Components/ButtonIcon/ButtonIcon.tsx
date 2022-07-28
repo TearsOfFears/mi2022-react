@@ -7,24 +7,26 @@ interface ButtonIconProps {
     radius?: number;
     onClick?: () => void;
     bgColor?: string;
+    controls?:boolean;
 }
 const ButtonIcon: FC<ButtonIconProps> = ({
     children,
     onClick,
+    controls,
     size,
     radius,
     bgColor
 }) => {
     return (
         <button
-            className={styles.button}
+            className={`${styles.button} ${controls && styles.buttonControls }`}
+            onClick={onClick}
             style={{
                 width: size,
                 height: size,
                 borderRadius: radius,
                 background: bgColor
             }}
-            onClick={onClick}
         >
             {children}
         </button>

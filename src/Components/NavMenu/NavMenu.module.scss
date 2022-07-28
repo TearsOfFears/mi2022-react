@@ -23,15 +23,16 @@
         }
         &:hover {
             border: 2px solid #fbe0dc;
-            transition: 0.3s;
+            transition: 0.5s;
+            box-shadow: none;
         }
         &:active {
             border: 2px solid #fbe0dc;
-            transition: 0.3s;
+            transition: 0.5s;
         }
         &:visited {
             border: 2px solid #fbe0dc;
-            transition: 0.3s;
+            transition: 0.5s;
         }
         .InputAdornment {
             font-size: inherit;

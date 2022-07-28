@@ -7,6 +7,7 @@ import styles from "./Vote.module.scss";
 import { ReactComponent as BackArrow } from "./../../assets/icons/backArrow.svg";
 import { Button } from "../Button/Button";
 import { theme } from "../../theme";
+import Controls from "../Controls/Controls";
 
 
 const Vote = () => {
@@ -15,22 +16,7 @@ const Vote = () => {
     return (
         <SideBlockLayout>
             <Paper className={styles.root}>
-                <div className={styles.wrapperButton}>
-                    <ButtonIcon
-                        size={40}
-                        radius={10}
-                        bgColor={theme.palette.primary.light}
-                    >
-                        <BackArrow />
-                    </ButtonIcon>
-                    <Button
-                        fontWeight={600}
-                        onClick={handleClick}
-                        customStyle={true}
-                    >
-                        VOTING
-                    </Button>
-                </div>
+                <Controls voting={true}/>
             </Paper>
         </SideBlockLayout>
     );
