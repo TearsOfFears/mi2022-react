@@ -27,6 +27,8 @@ const Breeds = () => {
             });
     };
     const cats = useQuery<Breeds[] | any>(["fetch breeds"], () => fetchCats());
+    console.log(cats.data);
+
     return (
         <SideBlockLayout>
             <Paper className={styles.root}>
@@ -37,7 +39,7 @@ const Breeds = () => {
                             return (
                                 <div className={styles.item}>
                                     <img src={data.image?.url} alt="" />
-                                    <h1>{key}</h1>
+                                    {/* <h1>{key}</h1> */}
                                 </div>
                             );
                         })
@@ -45,6 +47,7 @@ const Breeds = () => {
                         <h1>Loading...</h1>
                     )}
                 </div>
+           
             </Paper>
         </SideBlockLayout>
     );
