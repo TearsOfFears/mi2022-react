@@ -10,6 +10,7 @@ import { theme } from "../../theme";
 import Controls from "../Controls/Controls";
 import axios, { AxiosResponse } from "axios";
 import { useQuery } from "@tanstack/react-query";
+import GridCats from "./GridCats/GridCats";
 
 interface Breeds {
     name: string;
@@ -27,27 +28,14 @@ const Breeds = () => {
             });
     };
     const cats = useQuery<Breeds[] | any>(["fetch breeds"], () => fetchCats());
-    console.log(cats.data);
+    // console.log(cats.data);
 
     return (
         <SideBlockLayout>
             <Paper className={styles.root}>
                 <Controls breeds={true} />
-                <div className={styles.grid}>
-                    {!cats.isLoading ? (
-                        cats.data.map((data: any, key: number) => {
-                            return (
-                                <div className={styles.item}>
-                                    <img src={data.image?.url} alt="" />
-                                    {/* <h1>{key}</h1> */}
-                                </div>
-                            );
-                        })
-                    ) : (
-                        <h1>Loading...</h1>
-                    )}
-                </div>
-           
+
+                <GridCats cats={cats.data} isLoading={cats.isLoading} />
             </Paper>
         </SideBlockLayout>
     );
