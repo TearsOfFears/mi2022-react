@@ -20,6 +20,23 @@
         transition: 0.5s;
     }
 }
+.buttonWithOutHover {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 1);
+    color: #ff868e;
+    border: none;
+    letter-spacing: 2;
+    font-size: 12px;
+    padding: 10px;
+    width: 100%;
+    font-family: Jost;
+    font-size: 12px;
+    font-weight: 500;
+    height: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: 0.5s;
+}
 .secondButton {
     background: #fbe0dc;
     color: #ff868e;

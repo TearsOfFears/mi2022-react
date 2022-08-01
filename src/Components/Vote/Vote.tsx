@@ -15,9 +15,7 @@ const Vote = () => {
 
     return (
         <SideBlockLayout>
-            <Paper className={styles.root}>
                 <Controls voting={true}/>
-            </Paper>
         </SideBlockLayout>
     );
 };

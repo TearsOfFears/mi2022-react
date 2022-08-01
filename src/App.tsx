@@ -3,6 +3,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { MainLayout } from "./Layouts/MainLayout";
 import Breeds from "./Pages/Breed";
+import BreedCurrent from "./Pages/BreedCurrent";
 
 import Home from "./Pages/Home";
 import Voting from "./Pages/Voting";
@@ -32,6 +33,14 @@ function App() {
                 element={
                     <MainLayout>
                         <Breeds />
+                    </MainLayout>
+                }
+            />
+               <Route
+                path="/breeds/:id"
+                element={
+                    <MainLayout>
+                        <BreedCurrent />
                     </MainLayout>
                 }
             />

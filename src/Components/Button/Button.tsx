@@ -17,10 +17,17 @@ export const Button: FC<ButtonProps> = ({
     onClick,
     customStyle,
     active,
+    width
 }) => {
     return (
         <button
-            className={active ? style.active : customStyle ? `${style.secondButton} ${style.button}` :style.button}
+            className={
+                active
+                    ? style.active
+                    : customStyle
+                    ? `${style.secondButton} ${style.button}`
+                    : `${style.button} ${style.withOutHover}`
+            }
             onClick={onClick}
         >
             {children}

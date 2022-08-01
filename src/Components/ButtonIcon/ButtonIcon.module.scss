@@ -49,3 +49,39 @@
         }
     }
 }
+
+.active {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: 0.5s;
+    border: 2px solid transparent;
+    cursor: pointer;
+    background-color: #f8f8f7;
+    transition: 0.5s;
+    border: 2px solid #fbe0dc;
+    svg {
+        path {
+            fill: #ff868e;
+            transition: 0.5s;
+        }
+    }
+    &:hover {
+        cursor: pointer;
+        background-color: #f8f8f7;
+        transition: 0.5s;
+        border: 2px solid #fbe0dc;
+        svg {
+            path {
+                fill: #ff868e;
+                transition: 0.5s;
+            }
+        }
+    }
+}

@@ -1,4 +1,10 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, {
+    FC,
+    ReactEventHandler,
+    useEffect,
+    useMemo,
+    useState
+} from "react";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import NavMenu from "../NavMenu/NavMenu";
 import styles from "./Controls.module.scss";
@@ -7,15 +13,18 @@ import { ReactComponent as SortDesc } from "./../../assets/icons/sortAsc.svg";
 import { ReactComponent as SortAsc } from "./../../assets/icons/sortDesc.svg";
 import { Button } from "../Button/Button";
 import { theme } from "../../theme";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { MenuItem, Select, Skeleton } from "@mui/material";
 import axios, { AxiosResponse } from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { breedsService } from "../../query/breeds.service";
+import { useRefresh } from "../../hooks/useRefresh";
 
 interface ControlsProps {
     voting?: boolean;
     breeds?: boolean;
     gallery?: boolean;
+    breedsCurrent?: boolean;
 }
 
 interface Breeds {
@@ -26,33 +35,58 @@ interface GetBreedProps {
     data: Breeds[];
 }
 
-const Controls: FC<ControlsProps> = ({ voting, breeds, gallery }) => {
+const Controls: FC<ControlsProps> = ({
+    voting,
+    breeds,
+    gallery,
+    breedsCurrent
+}) => {
     const handleClick = () => {};
-    // const [data, setData] = useState<Breeds[] | any[]>([]);
-    const [breed, setBreed] = useState<string>("All breeds");
+
+    const [breed, setBreed] = useState<string>("");
     const [limit, setLimit] = useState<number>(5);
 
-    const [asc, setAsc] = useState<boolean>(false);
-    const [desc, setDesc] = useState<boolean>(false);
+    const [order, setOrder] = useState<string>("");
+    const search = useLocation().search;
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const fetchBreeds = async () => {
-        return await axios
-            .get<GetBreedProps>("https://api.thecatapi.com/v1/breeds")
-            .then((res: AxiosResponse) => {
-                return res.data;
-            });
-    };
-    const { data, isLoading } = useQuery<Breeds[] | any>(["fetch breeds"], () =>
-        fetchBreeds()
+    const { data, isLoading } = useQuery<Breeds[] | any>(
+        ["fetch breeds"],
+        breedsService.getAllCats
     );
 
-    const breedsArr = !isLoading && data.map((obj: any) => obj.name);
-    // breedsArr.unshift("All breeds");
+    const breedsArr =
+        !isLoading &&
+        data.map((obj: any) => ({ value: obj.id, nameBreed: obj.name }));
 
-    
+    useEffect(() => {
+        searchParams.set("breed", breed);
+        searchParams.set("limit", String(limit));
+        searchParams.set("order", order);
+        setSearchParams(searchParams);
+    }, [breed, limit, order]);
+
     return (
         <>
             {voting && (
+                <div className={styles.rootVoting}>
+                    <ButtonIcon
+                        size={40}
+                        radius={10}
+                        bgColor={theme.palette.primary.light}
+                    >
+                        <BackArrow />
+                    </ButtonIcon>
+                    <Button
+                        fontWeight={600}
+                        onClick={handleClick}
+                        customStyle={true}
+                    >
+                        VOTING
+                    </Button>
+                </div>
+            )}
+            {breedsCurrent && (
                 <div className={styles.rootVoting}>
                     <ButtonIcon
                         size={40}
@@ -92,9 +126,9 @@ const Controls: FC<ControlsProps> = ({ voting, breeds, gallery }) => {
                             className={styles.selectMenu}
                             onChange={(e) => setBreed(e.target.value)}
                         >
-                            {breedsArr.map((data: string, key: number) => [
-                                <option value={data} key={key}>
-                                    {data}
+                            {breedsArr.map((data: any, key: number) => [
+                                <option value={data.value} key={key}>
+                                    {data.nameBreed}
                                 </option>
                             ])}
                         </select>
@@ -118,10 +152,18 @@ const Controls: FC<ControlsProps> = ({ voting, breeds, gallery }) => {
                         <option value="15">Limit: 15</option>
                         <option value="20">Limit: 20</option>
                     </select>
-                    <ButtonIcon controls={true}>
+                    <ButtonIcon
+                        controls={true}
+                        active={searchParams.get("order") === "DESC"}
+                        onClick={() => setOrder("DESC")}
+                    >
                         <SortAsc />
                     </ButtonIcon>
-                    <ButtonIcon controls={true}>
+                    <ButtonIcon
+                        controls={true}
+                        active={searchParams.get("order") === "ASC"}
+                        onClick={() => setOrder("ASC")}
+                    >
                         <SortDesc />
                     </ButtonIcon>
                 </div>
