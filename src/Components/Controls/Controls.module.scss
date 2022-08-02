@@ -11,7 +11,30 @@
     align-items: center;
     width: 100%;
 }
-
+.rootCurrent {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 310px;
+    span {
+        border-radius: 10px;
+        background: #ff868e;
+        color: rgba(255, 255, 255, 1);
+        border: none;
+        letter-spacing: 2;
+        font-size: 20px;
+        padding: 10px;
+        width: 100px;
+        font-family: Jost;
+        font-size: 12px;
+        font-weight: 600;
+        height: 40px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: 0.5s;
+        text-align: center;
+    }
+}
 .selectMenu {
     border: none;
     background-color: #f8f8f7;
@@ -29,11 +52,11 @@
         transition: 0.5s;
         cursor: pointer;
     }
-    &:focus{
+    &:focus {
         border: 2px solid #fbe0dc !important;
         transition: 0.5s;
     }
-    &:focus-visible{
+    &:focus-visible {
         border: 2px solid #fbe0dc !important;
         transition: 0.5s;
         outline: none;
@@ -42,8 +65,8 @@
 
 option {
     background-color: #fff;
-    border:1px solid transparent;
-    border-radius:30px;
+    border: 1px solid transparent;
+    border-radius: 30px;
 }
 
 .rootGallery {

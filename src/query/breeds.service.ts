@@ -20,6 +20,18 @@ export const breedsService = {
                 return res.data;
             });
     },
+    async getImagesForCurrentCat(id: any) {
+        let query_params = {
+            breed_id: id,
+            limit:5,
+            has_breeds: 1
+        };
+        return await instance
+            .get(`/images/search`,{params:query_params})
+            .then((res: AxiosResponse) => {
+                return res.data;
+            });
+    },
     async getBreedsById({ breedId, limit, order }: breedIdProps) {
         let query_params = {
             breed_id: breedId,

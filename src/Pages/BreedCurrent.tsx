@@ -5,23 +5,17 @@ import { useParams } from "react-router-dom";
 import Controls from "../Components/Controls/Controls";
 import { SideBlockLayout } from "../Layouts/SideBlockLayout";
 import { breedsService } from "./../query/breeds.service";
+import Carousel from "react-material-ui-carousel";
+import BreedCurrentShow from "../Components/BreedCurrent/BreedCurrentShow";
 // interface Breeds {
 //     name: object;
 // }
 const BreedCurrent = () => {
-    const { id } = useParams();
-    console.log(id);
-
-    const { data,isLoading } = useQuery(["fetch breeds"], () =>
-        breedsService.getCurrentCat(id)
-    );
-    console.log(data);
-
     return (
         <SideBlockLayout>
             <>
-                <Controls breeds={true} />
-                {!isLoading && data.name}
+                <Controls breedsCurrent={true} />
+                <BreedCurrentShow />
             </>
         </SideBlockLayout>
     );

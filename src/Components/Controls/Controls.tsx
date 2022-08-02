@@ -13,7 +13,7 @@ import { ReactComponent as SortDesc } from "./../../assets/icons/sortAsc.svg";
 import { ReactComponent as SortAsc } from "./../../assets/icons/sortDesc.svg";
 import { Button } from "../Button/Button";
 import { theme } from "../../theme";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { MenuItem, Select, Skeleton } from "@mui/material";
 import axios, { AxiosResponse } from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -41,6 +41,8 @@ const Controls: FC<ControlsProps> = ({
     gallery,
     breedsCurrent
 }) => {
+    const { id } = useParams();
+    const navigate = useNavigate();
     const handleClick = () => {};
 
     const [breed, setBreed] = useState<string>("");
@@ -87,11 +89,12 @@ const Controls: FC<ControlsProps> = ({
                 </div>
             )}
             {breedsCurrent && (
-                <div className={styles.rootVoting}>
+                <div className={styles.rootCurrent}>
                     <ButtonIcon
                         size={40}
                         radius={10}
                         bgColor={theme.palette.primary.light}
+                        onClick={()=>navigate("/breeds")}
                     >
                         <BackArrow />
                     </ButtonIcon>
@@ -100,8 +103,9 @@ const Controls: FC<ControlsProps> = ({
                         onClick={handleClick}
                         customStyle={true}
                     >
-                        VOTING
+                        breeds
                     </Button>
+                    <span>{id}</span>
                 </div>
             )}
             {breeds && (

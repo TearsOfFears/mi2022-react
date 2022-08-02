@@ -10,6 +10,8 @@ interface ICat {
 
 const GridCats: FC<ICat> = ({ cats, isLoading }) => {
     const navigate = useNavigate();
+    console.log(cats);
+    
     const calcCats = () => {
         var indents = [];
         let subarray = [];
