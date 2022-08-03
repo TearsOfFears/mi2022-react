@@ -1,12 +1,111 @@
-.root{
-    margin-top: 15px;
-    height: 100%;
-    border-radius: 20px !important; 
-    box-shadow: none !important;
-    padding: 20px;
+.root {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start;
-  
+    justify-content: space-between;
+    margin-top: 20px;
+    .wrapperVote {
+        width: 100%;
+        height: 450px;
+        overflow: hidden;
+        border-radius: 20px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        img {
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
+            border-radius: 20px;
+            height: 90%;
+        }
+        .wrapperIconsVoting {
+            position: absolute;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            bottom: 0px;
+            background: #fff;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            padding: 2px;
+            button {
+                border: none;
+                width: 80px;
+                height: 80px;
+                svg {
+                    fill: white;
+                    path {
+                        fill: white;
+                    }
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+                &:nth-child(1) {
+                    background-color: #97eab9;
+                    border: none;
+                    border-top-left-radius: 20px;
+                    border-bottom-left-radius: 20px;
+                }
+                &:nth-child(2) {
+                    background-color: #ff868e;
+                    border: none;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                }
+                &:nth-child(3) {
+                    background-color: #ffd280;
+                    border: none;
+                    border-top-right-radius: 20px;
+                    border-bottom-right-radius: 20px;
+                }
+            }
+        }
+    }
+    .history {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        background-color: #f8f8f7;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+        .time {
+            background: #fff;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: left;
+            color: #1d1d1d;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 5px;
+            margin-right: 30px;
+        }
+
+        h5 {
+            font-family: Jost;
+            font-size: 18px;
+            line-height: 1.5;
+            color: #8c8c8c;
+            width: 100%;
+            span {
+                font-weight: 600;
+                color: #1d1d1d;
+            }
+        }
+        .likes {
+            path {
+                fill: #97eab9;
+            }
+        }
+        .disLikes {
+            path {
+                fill: #ffd280;
+            }
+        }
+    }
 }
