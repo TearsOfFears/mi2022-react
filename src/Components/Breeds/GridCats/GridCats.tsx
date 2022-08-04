@@ -2,16 +2,18 @@ import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../Button/Button";
 import styles from "./../Breeds.module.scss";
-
+import { ReactComponent as Like } from "./../../../assets/icons/fav.svg";
+import ButtonIcon from "../../ButtonIcon/ButtonIcon";
 interface ICat {
     cats: Array<object>;
     isLoading: boolean;
+    gallery?: boolean;
 }
 
-const GridCats: FC<ICat> = ({ cats, isLoading }) => {
-    const navigate = useNavigate();
+const GridCats: FC<ICat> = ({ cats, isLoading, gallery }) => {
     console.log(cats);
-    
+
+    const navigate = useNavigate();
     const calcCats = () => {
         var indents = [];
         let subarray = [];
@@ -35,17 +37,36 @@ const GridCats: FC<ICat> = ({ cats, isLoading }) => {
                                                     : styles.itemReverse
                                             }
                                         >
-                                            <div className={styles.hoverItem}>
-                                                <Button
-                                                    customStyle={false}
-                                                    onClick={() =>
-                                                        navigate(
-                                                            `/breeds/${item.breeds[0].id}`
-                                                        )
-                                                    }
-                                                >
-                                                    {item.breeds[0].name}
-                                                </Button>
+                                            <div
+                                                className={
+                                                    gallery
+                                                        ? styles.galleryHoverItem
+                                                        : styles.hoverItem
+                                                }
+                                            >
+                                                {" "}
+                                                {gallery ? (
+                                                    <ButtonIcon>
+                                                        <Like />
+                                                    </ButtonIcon>
+                                                ) : (
+                                                    <Button
+                                                        customStyle={false}
+                                                        disabled={
+                                                            !item?.breeds[0]
+                                                                ?.name
+                                                        }
+                                                        onClick={() =>
+                                                            navigate(
+                                                                `/breeds/${item?.breeds[0]?.id}`
+                                                            )
+                                                        }
+                                                    >
+                                                        {item?.breeds[0]
+                                                            ?.name ||
+                                                            "undefined"}
+                                                    </Button>
+                                                )}
                                             </div>
                                             <img
                                                 src={

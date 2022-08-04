@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, ReactElement } from "react";
 import style from "./Button.module.scss";
 interface ButtonProps {
     children: string[] | string;
-    onClick?: () => void;
+    onClick?: () => void | any;
     active?: boolean;
     bgColor?: string;
     color?: string;
@@ -10,6 +10,8 @@ interface ButtonProps {
     padding?: number;
     width?: string;
     customStyle?: boolean;
+    disabled?: boolean;
+    icon?: ReactElement;
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -17,10 +19,13 @@ export const Button: FC<ButtonProps> = ({
     onClick,
     customStyle,
     active,
-    width
+    width,
+    disabled,
+    icon
 }) => {
     return (
         <button
+            disabled={disabled}
             className={
                 active
                     ? style.active
@@ -30,7 +35,7 @@ export const Button: FC<ButtonProps> = ({
             }
             onClick={onClick}
         >
-            {children}
+            {icon} {children}
         </button>
     );
 };

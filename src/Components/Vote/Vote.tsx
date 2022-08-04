@@ -20,13 +20,31 @@ interface RandomCat {
 }
 const Vote = () => {
     const handleClick = () => {};
-    const { data, isFetching } = useQuery<RandomCat[] | any>(
-        ["get random cat"],
-        () => breedsService.getRandomImageVote()
+    const {
+        data,
+        isFetching,
+        refetch: getRandom
+    } = useQuery<RandomCat[] | any>(["get random cat"], () =>
+        breedsService.getRandomImageVote()
     );
 
-    const makeVotes = useMutation(["make Vote"], breedsService.makeVote);
+   
+   
     const getVotes = useQuery(["get votes"], breedsService.getVotes);
+    const getFav = useQuery(["get Fav"], breedsService.getFavourites);
+    const makeFav = useMutation(["make Fav"], breedsService.makeFavourite,{
+        onSuccess() {
+            getVotes.refetch();
+            getFav.refetch();
+            getRandom();
+        },
+    });
+    const makeVotes = useMutation(["make Vote"], breedsService.makeVote,{
+        onSuccess() {
+            getVotes.refetch();
+            getRandom();
+        },
+    });
     const handleVote = async (val: number, id?: string) => {
         const data = {
             image_id: id,
@@ -34,8 +52,13 @@ const Vote = () => {
         };
         await makeVotes.mutateAsync({ data: data });
     };
-    console.log(getVotes.data);
 
+    const handleFav = async (id?: string) => {
+        const data = {
+            image_id: id
+        };
+        await makeFav.mutateAsync({ data: data });
+    };
     return (
         <SideBlockLayout>
             <>
@@ -67,7 +90,11 @@ const Vote = () => {
                                                 >
                                                     <Like />
                                                 </button>
-                                                <button>
+                                                <button
+                                                    onClick={(e) =>
+                                                        handleFav(obj?.id)
+                                                    }
+                                                >
                                                     <Fav />
                                                 </button>
                                                 <button
@@ -87,37 +114,62 @@ const Vote = () => {
                         )}
                     </Grid>
                     <Grid item xs={12} marginTop="15px">
-                        {!getVotes.isFetching ? (
-                            getVotes.data.map((data: any, key: number) => {
-                                return (
-                                    <div key={key} className={styles.history}>
-                                        <span className={styles.time}>
-                                            {moment(data?.created_at).format(
-                                                "H:MM"
+                        {!getVotes.isLoading && !getFav.isLoading ? (
+                            getVotes.data
+                                .concat(getFav.data)
+                                .sort(
+                                    (a: any, b: any) =>
+                                        Date.parse(b?.created_at) -
+                                        Date.parse(a?.created_at)
+                                )
+                                .slice(0, 4)
+                                .map((data: any, key: number) => {
+                                    return (
+                                        <div
+                                            key={key}
+                                            className={styles.history}
+                                        >
+                                            <span className={styles.time}>
+                                                {moment(
+                                                    data?.created_at
+                                                ).format("HH:mm")}
+                                            </span>
+                                            <Typography variant="h5">
+                                                Image ID:{" "}
+                                                <span>{data?.image_id} </span>
+                                                was added to{" "}
+                                                {data?.value === 1 && (
+                                                    <>Likes</>
+                                                )}
+                                                {data?.value === -1 && (
+                                                    <>Dislike</>
+                                                )}
+                                                {typeof data.value ===
+                                                    "undefined" && (
+                                                    <>Favourites</>
+                                                )}
+                                            </Typography>
+                                            {data?.value === 1 && (
+                                                <>
+                                                    <Like
+                                                        className={styles.likes}
+                                                    />
+                                                </>
                                             )}
-                                        </span>
-                                        <Typography variant="h5">
-                                            Image ID:{" "}
-                                            <span>{data?.image_id} </span>
-                                            was added to{" "}
-                                            {data?.value === 1 ? (
-                                                <>Likes</>
-                                            ) : (
-                                                <>Dislike</>
+                                            {data?.value === -1 && (
+                                                <>
+                                                    <Dislike
+                                                        className={
+                                                            styles.disLikes
+                                                        }
+                                                    />
+                                                </>
                                             )}
-                                        </Typography>
-                                        {data?.value === 1 ? (
-                                            <>
-                                                <Like className={styles.likes}/>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Dislike className={styles.disLikes}/>
-                                            </>
-                                        )}
-                                    </div>
-                                );
-                            })
+                                            {typeof data.value ===
+                                                "undefined" && <Fav />}
+                                        </div>
+                                    );
+                                })
                         ) : (
                             <h1>loading...</h1>
                         )}

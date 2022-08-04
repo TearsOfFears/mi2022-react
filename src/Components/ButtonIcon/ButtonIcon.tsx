@@ -8,7 +8,8 @@ interface ButtonIconProps {
     onClick?: () => void;
     bgColor?: string;
     controls?:boolean;
-    active?:boolean
+    active?:boolean;
+    mr?:string
 }
 const ButtonIcon: FC<ButtonIconProps> = ({
     children,
@@ -17,7 +18,8 @@ const ButtonIcon: FC<ButtonIconProps> = ({
     size,
     radius,
     bgColor,
-    active
+    active,
+    mr
 }) => {
     return (
         <button
@@ -27,7 +29,8 @@ const ButtonIcon: FC<ButtonIconProps> = ({
                 width: size,
                 height: size,
                 borderRadius: radius,
-                background: bgColor
+                background: bgColor,
+                margin:mr
             }}
         >
             {children}

@@ -14,10 +14,25 @@
     letter-spacing: 2px;
     text-transform: uppercase;
     transition: 0.5s;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    svg {
+        margin-right: 10px;
+    }
     &:hover {
         background-color: #fbe0dc;
         cursor: pointer;
         transition: 0.5s;
+        svg {
+            fill: white;
+            margin-right: 10px;
+            path {
+                fill: white;
+                transition: 0.5s;
+            }
+        }
     }
 }
 .buttonWithOutHover {

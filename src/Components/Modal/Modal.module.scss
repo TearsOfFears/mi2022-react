@@ -1,0 +1,21 @@
+.root {
+    display: none !important;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.show {
+    background-color: #f8f8f7;
+    height: 90vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 1;
+    transition: 0.5s;
+    z-index: 3232323232;
+}

@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { MainLayout } from "./Layouts/MainLayout";
 import Breeds from "./Pages/Breed";
 import BreedCurrent from "./Pages/BreedCurrent";
+import Gallery from "./Pages/Gallery";
 
 import Home from "./Pages/Home";
 import Voting from "./Pages/Voting";
@@ -28,7 +29,7 @@ function App() {
                     </MainLayout>
                 }
             />
-              <Route
+            <Route
                 path="/breeds"
                 element={
                     <MainLayout>
@@ -36,7 +37,7 @@ function App() {
                     </MainLayout>
                 }
             />
-               <Route
+            <Route
                 path="/breeds/:id"
                 element={
                     <MainLayout>
@@ -44,7 +45,14 @@ function App() {
                     </MainLayout>
                 }
             />
-            <Route path="/gallery" element={<Home />} />
+            <Route
+                path="/gallery"
+                element={
+                    <MainLayout>
+                        <Gallery />
+                    </MainLayout>
+                }
+            />
         </Routes>
     );
 }

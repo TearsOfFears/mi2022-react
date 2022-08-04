@@ -5,9 +5,10 @@ interface breedIdProps {
     limit?: any;
     order?: any;
     id?: string;
+    type?: string;
 }
-interface breedVoteProps{
-   data?:any;
+interface breedVoteProps {
+    data?: any;
 }
 
 export const breedsService = {
@@ -35,12 +36,16 @@ export const breedsService = {
                 return res.data;
             });
     },
-    async getBreedsById({ breedId, limit, order }: breedIdProps) {
+    async getBreedsById({ breedId, limit, order, type }: breedIdProps) {
+        console.log(breedId);
+
         let query_params = {
             breed_id: breedId,
             limit: limit,
             order: order,
-            has_breeds: 1
+            has_breeds: type==="gif" ? 0:1,
+            mime_types: type,
+            size: "med"
         };
         return await instance
             .get(`/images/search`, { params: query_params })
@@ -57,16 +62,32 @@ export const breedsService = {
     },
     async getVotes() {
         return await instance
-            .get(`/votes?limit=4&order=DESC`)
+            .get(`/votes?order=DESC`)
             .then((res: AxiosResponse) => {
                 return res.data;
             });
     },
-    async makeVote({data}: breedVoteProps) {
-        console.log("data",data);
-        
+    async makeVote({ data }: breedVoteProps) {
+        console.log("data", data);
+
         return await instance
             .post(`/votes`, data)
+            .then((res: AxiosResponse) => {
+                return res.data;
+            });
+    },
+    async makeFavourite({ data }: breedVoteProps) {
+        console.log("data", data);
+
+        return await instance
+            .post(`/favourites`, data)
+            .then((res: AxiosResponse) => {
+                return res.data;
+            });
+    },
+    async getFavourites() {
+        return await instance
+            .get(`/favourites?order=DESC`)
             .then((res: AxiosResponse) => {
                 return res.data;
             });

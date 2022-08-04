@@ -2,6 +2,7 @@ import React, {
     FC,
     ReactEventHandler,
     useEffect,
+    useLayoutEffect,
     useMemo,
     useState
 } from "react";
@@ -11,14 +12,21 @@ import styles from "./Controls.module.scss";
 import { ReactComponent as BackArrow } from "./../../assets/icons/backArrow.svg";
 import { ReactComponent as SortDesc } from "./../../assets/icons/sortAsc.svg";
 import { ReactComponent as SortAsc } from "./../../assets/icons/sortDesc.svg";
+import { ReactComponent as Upload } from "./../../assets/icons/Upload.svg";
 import { Button } from "../Button/Button";
 import { theme } from "../../theme";
-import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { MenuItem, Select, Skeleton } from "@mui/material";
+import {
+    useLocation,
+    useNavigate,
+    useParams,
+    useSearchParams
+} from "react-router-dom";
+import { MenuItem, Modal, Select, Skeleton } from "@mui/material";
 import axios, { AxiosResponse } from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { breedsService } from "../../query/breeds.service";
 import { useRefresh } from "../../hooks/useRefresh";
+import Popup from "../Modal/Popup";
 
 interface ControlsProps {
     voting?: boolean;
@@ -47,7 +55,7 @@ const Controls: FC<ControlsProps> = ({
 
     const [breed, setBreed] = useState<string>("");
     const [limit, setLimit] = useState<number>(5);
-
+    const [modal, setModal] = useState<boolean>(false);
     const [order, setOrder] = useState<string>("");
     const search = useLocation().search;
     const [searchParams, setSearchParams] = useSearchParams();
@@ -61,13 +69,21 @@ const Controls: FC<ControlsProps> = ({
         !isLoading &&
         data.map((obj: any) => ({ value: obj.id, nameBreed: obj.name }));
 
-    useEffect(() => {
+    !isLoading && breedsArr.unshift({ value: "", nameBreed: "All Breeds" });
+
+    const handleSort = () => {
         searchParams.set("breed", breed);
         searchParams.set("limit", String(limit));
         searchParams.set("order", order);
         setSearchParams(searchParams);
+    };
+    useEffect(() => {
+        if (breeds) handleSort();
     }, [breed, limit, order]);
-
+    const configModal = {
+        modal,
+        setModal
+    };
     return (
         <>
             {voting && (
@@ -94,7 +110,7 @@ const Controls: FC<ControlsProps> = ({
                         size={40}
                         radius={10}
                         bgColor={theme.palette.primary.light}
-                        onClick={()=>navigate("/breeds")}
+                        onClick={() => navigate("/breeds")}
                     >
                         <BackArrow />
                     </ButtonIcon>
@@ -110,84 +126,108 @@ const Controls: FC<ControlsProps> = ({
             )}
             {breeds && (
                 <div className={styles.rootBreeds}>
-                    <ButtonIcon
-                        size={40}
-                        radius={10}
-                        bgColor={theme.palette.primary.light}
-                    >
-                        <BackArrow />
-                    </ButtonIcon>
-                    <Button
-                        fontWeight={600}
-                        onClick={handleClick}
-                        customStyle={true}
-                    >
-                        breeds
-                    </Button>
-                    {!isLoading ? (
-                        <select
-                            value={breed}
-                            className={styles.selectMenu}
-                            onChange={(e) => setBreed(e.target.value)}
+                    <div>
+                        <ButtonIcon
+                            size={40}
+                            radius={10}
+                            mr="0px 10px 0px 0px"
+                            bgColor={theme.palette.primary.light}
                         >
-                            {breedsArr.map((data: any, key: number) => [
-                                <option value={data.value} key={key}>
-                                    {data.nameBreed}
-                                </option>
-                            ])}
-                        </select>
-                    ) : (
-                        <Skeleton
-                            variant="rectangular"
-                            height={35}
-                            width={230}
-                        />
-                    )}
+                            <BackArrow />
+                        </ButtonIcon>
+                        <Button
+                            fontWeight={600}
+                            onClick={handleClick}
+                            customStyle={true}
+                        >
+                            breeds
+                        </Button>
+                    </div>
+                    <div className={styles.selectWrapper}>
+                        {!isLoading ? (
+                            <select
+                                value={breed}
+                                className={styles.selectMenu}
+                                onChange={(e) => {
+                                    setBreed(e.target.value);
+                                }}
+                            >
+                                {breedsArr.map((data: any, key: number) => [
+                                    <option value={data.value} key={key}>
+                                        {data.nameBreed}
+                                    </option>
+                                ])}
+                            </select>
+                        ) : (
+                            <Skeleton
+                                variant="rectangular"
+                                height={35}
+                                width={230}
+                            />
+                        )}
 
-                    <select
-                        value={limit}
-                        className={styles.selectMenu}
-                        onChange={(e) => setLimit(Number(e.target.value))}
-                    >
-                        <option value="5" selected>
-                            Limit: 5
-                        </option>
-                        <option value="10">Limit: 10</option>
-                        <option value="15">Limit: 15</option>
-                        <option value="20">Limit: 20</option>
-                    </select>
-                    <ButtonIcon
-                        controls={true}
-                        active={searchParams.get("order") === "DESC"}
-                        onClick={() => setOrder("DESC")}
-                    >
-                        <SortAsc />
-                    </ButtonIcon>
-                    <ButtonIcon
-                        controls={true}
-                        active={searchParams.get("order") === "ASC"}
-                        onClick={() => setOrder("ASC")}
-                    >
-                        <SortDesc />
-                    </ButtonIcon>
+                        <select
+                            value={limit}
+                            className={styles.selectMenu}
+                            onChange={(e) => setLimit(Number(e.target.value))}
+                        >
+                            <option value="5" selected>
+                                Limit: 5
+                            </option>
+                            <option value="10">Limit: 10</option>
+                            <option value="15">Limit: 15</option>
+                            <option value="20">Limit: 20</option>
+                        </select>
+                    </div>
+
+                    <div style={{ width: "10%" }}>
+                        <ButtonIcon
+                            controls={true}
+                            active={searchParams.get("order") === "DESC"}
+                            onClick={() => setOrder("DESC")}
+                        >
+                            <SortAsc />
+                        </ButtonIcon>
+                        <ButtonIcon
+                            controls={true}
+                            active={searchParams.get("order") === "ASC"}
+                            onClick={() => setOrder("ASC")}
+                        >
+                            <SortDesc />
+                        </ButtonIcon>
+                    </div>
                 </div>
             )}
             {gallery && (
                 <div className={styles.rootGallery}>
-                    <ButtonIcon
-                        size={40}
-                        radius={10}
-                        bgColor={theme.palette.primary.light}
-                    >
-                        <BackArrow />
-                    </ButtonIcon>
+                    <div>
+                        {" "}
+                        <ButtonIcon
+                            size={40}
+                            radius={10}
+                            bgColor={theme.palette.primary.light}
+                            mr="0px 10px 0px 0px"
+                        >
+                            <BackArrow />
+                        </ButtonIcon>
+                        <Button
+                            fontWeight={600}
+                            onClick={handleClick}
+                            customStyle={true}
+                        >
+                            GALLERY
+                        </Button>
+                    </div>
+
                     <Button
                         fontWeight={600}
-                        onClick={handleClick}
+                        onClick={() => setModal(!modal)}
                         customStyle={true}
+                        icon={<Upload />}
                     >
-                        breeds
+                        UPLOAD
                     </Button>
+                    <Popup  {...configModal}/>
                 </div>
             )}
         </>

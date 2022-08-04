@@ -5,6 +5,7 @@ import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import NavMenu from "../NavMenu/NavMenu";
 import styles from "./Breeds.module.scss";
 import { ReactComponent as BackArrow } from "./../../assets/icons/backArrow.svg";
+
 import { Button } from "../Button/Button";
 import { theme } from "../../theme";
 import Controls from "../Controls/Controls";
@@ -26,10 +27,6 @@ const Breeds = () => {
     const queryStringSeach = queryString.parse(useLocation().search);
     const handleClick = () => {};
     const refresh = useRefresh();
-    // const cats = useQuery<Breeds[] | any>(
-    //     ["fetch cats"],
-    //     breedsService.getAllCats
-    // );
     const test = searchParams.get("breed");
     const limit = searchParams.get("limit");
     const order = searchParams.get("order");
