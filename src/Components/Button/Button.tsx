@@ -8,7 +8,6 @@ interface ButtonProps {
     color?: string;
     fontWeight?: number;
     padding?: number;
-    width?: string;
     customStyle?: boolean;
     disabled?: boolean;
     icon?: ReactElement;
@@ -19,7 +18,6 @@ export const Button: FC<ButtonProps> = ({
     onClick,
     customStyle,
     active,
-    width,
     disabled,
     icon
 }) => {

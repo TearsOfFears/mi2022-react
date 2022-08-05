@@ -43,7 +43,7 @@ export const breedsService = {
             breed_id: breedId,
             limit: limit,
             order: order,
-            has_breeds: type==="gif" ? 0:1,
+            has_breeds: type === "gif" ? 0 : 1,
             mime_types: type,
             size: "med"
         };
@@ -91,8 +91,14 @@ export const breedsService = {
             .then((res: AxiosResponse) => {
                 return res.data;
             });
+    },
+    async uploadImage(data: any) {
+        return await instance
+            .post(`images/upload`, data)
+            .then((res: AxiosResponse) => {
+                return res.data;
+            });
     }
-
     //
     // async deleteComment(id){
     //     return await axios.get(`/commentDelete/${id}`)

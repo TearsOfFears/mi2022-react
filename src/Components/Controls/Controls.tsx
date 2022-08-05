@@ -200,7 +200,13 @@ const Controls: FC<ControlsProps> = ({
             )}
             {gallery && (
                 <div className={styles.rootGallery}>
-                    <div>
+                    <div
+                        style={{
+                            display: "inline-Flex",
+                            justifyContent: "space-between",
+                            alignItems: "center"
+                        }}
+                    >
                         {" "}
                         <ButtonIcon
                             size={40}
@@ -227,7 +233,7 @@ const Controls: FC<ControlsProps> = ({
                     >
                         UPLOAD
                     </Button>
-                    <Popup  {...configModal}/>
+                    <Popup {...configModal} />
                 </div>
             )}
         </>
