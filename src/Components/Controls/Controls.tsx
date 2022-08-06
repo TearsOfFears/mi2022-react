@@ -27,6 +27,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { breedsService } from "../../query/breeds.service";
 import { useRefresh } from "../../hooks/useRefresh";
 import Popup from "../Modal/Popup";
+import { CSSTransition } from "react-transition-group";
 
 interface ControlsProps {
     voting?: boolean;
@@ -84,6 +85,8 @@ const Controls: FC<ControlsProps> = ({
         modal,
         setModal
     };
+
+
     return (
         <>
             {voting && (
@@ -233,7 +236,20 @@ const Controls: FC<ControlsProps> = ({
                     >
                         UPLOAD
                     </Button>
-                    <Popup {...configModal} />
+
+                    <CSSTransition
+                        in={modal}
+                        timeout={500}
+                        classNames={{
+                            enter: styles.enter,
+                            enterActive: styles.enterActive,
+                            exit: styles.exitActive,
+                        }}
+                        mountOnEnter
+                        unmountOnExit
+                    >
+                        <Popup {...configModal} />
+                    </CSSTransition>
                 </div>
             )}
         </>

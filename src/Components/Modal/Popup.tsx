@@ -4,6 +4,8 @@ import styles from "./Modal.module.scss";
 import { Button } from "../Button/Button";
 import { ReactComponent as Close } from "./../../assets/icons/Close.svg";
 import { ReactComponent as PlaceImage } from "./../../assets/icons/placeImage.svg";
+import { ReactComponent as Success } from "./../../assets/icons/Success.svg";
+import { ReactComponent as Failed } from "./../../assets/icons/Failed.svg";
 import { Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { breedsService } from "../../query/breeds.service";
@@ -15,29 +17,30 @@ interface Modal {
 interface ImageProps {
     src?: string;
     data?: object | any;
+    name?: string;
 }
 const Popup: FC<Modal> = ({ modal, setModal }) => {
     const close = useRef<HTMLDivElement>(null);
     const refFile = useRef<HTMLInputElement>(null);
     const [dragActive, setDragActive] = useState(false);
     const [image, setImage] = useState<ImageProps>({});
-    // const handleOutsideClick = (e: MouseEvent) => {
-    //     window.onclick = (event: MouseEvent) => {
-    //         const target = event.target as HTMLBodyElement;
-    //         if (!target?.contains(close.current)) {
-    //             setModal(!modal)
-    //         }
-    //     };
-    // };
-    // useEffect(() => {
-    //     document.body.addEventListener('click',handleOutsideClick);
-    // }, [])
 
-    function handleFile(files: any) {
-        if (files.length !== 0) {
-            setImage({ src: URL.createObjectURL(files[0]), data: files[0] });
+    const handleOutsideClick = (e: MouseEvent) => {
+        const target = e.target as HTMLDivElement;
+        const el = close?.current;
+        if (!el || el.contains(target)) {
+            if (modal) {
+                setModal(false);
+            }
         }
-    }
+    };
+    useEffect(() => {
+        document.body.addEventListener("click", handleOutsideClick);
+        return () => {
+            document.body.removeEventListener("click", handleOutsideClick);
+        };
+    }, []);
+    const formData = new FormData();
     const handleDrag = function (e: React.DragEvent<HTMLDivElement>) {
         e.preventDefault();
         e.stopPropagation();
@@ -52,20 +55,30 @@ const Popup: FC<Modal> = ({ modal, setModal }) => {
         e.stopPropagation();
         setDragActive(false);
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            handleFile(e.dataTransfer.files);
+            formData.append("file", e.dataTransfer.files[0]);
+            setImage({
+                src: URL.createObjectURL(e.dataTransfer.files[0]),
+                name: e.dataTransfer.files[0].name,
+                data: formData
+            });
         }
     };
     const handleChange = function (e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault();
         if (e.target.files && e.target.files[0]) {
-            handleFile(e.target.files);
+            formData.append("file", e.target.files[0]);
+            setImage({
+                src: URL.createObjectURL(e.target.files[0]),
+                name: e.target.files[0].name,
+                data: formData
+            });
         }
     };
     const onClickBlock = () => {
         refFile?.current?.click();
     };
     const uploadData = useMutation(
-        ["uplaod Image"],
+        ["upload Image"],
         breedsService.uploadImage,
         {
             onSuccess() {
@@ -73,10 +86,10 @@ const Popup: FC<Modal> = ({ modal, setModal }) => {
             }
         }
     );
-    const handleUplaod = async () => {
-        console.log(image.data);
-
-        await uploadData.mutateAsync({ file: image.data });
+    const handleUpload = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        const file = image.data;
+        await uploadData.mutateAsync(file);
     };
     modal
         ? (document.body.style.overflow = "hidden")
@@ -91,18 +104,17 @@ const Popup: FC<Modal> = ({ modal, setModal }) => {
                     top: "0",
                     right: "0",
                     bottom: "0",
-                    left: "0",
-                    opacity: !modal ? "0" : "1",
-                    transition: "all .5s",
-                    visibility: !modal ? "hidden" : "visible"
+                    left: "0"
                 }}
-            ></div>
-            <div
                 ref={close}
-                className={modal ? `${styles.show} ` : styles.root}
-            >
+            ></div>
+            <div className={modal ? `${styles.show} ` : styles.root}>
                 <ButtonIcon
-                    onClick={() => setModal(false)}
+                    onClick={() => {
+                        setModal(false);
+                        setImage({});
+                        uploadData.reset();
+                    }}
                     size={40}
                     radius={10}
                     mr="0 0 0 auto"
@@ -124,13 +136,16 @@ const Popup: FC<Modal> = ({ modal, setModal }) => {
                         onDragLeave={handleDrag}
                         onDragOver={handleDrag}
                         onDrop={handleDrop}
+                        style={{
+                            background: uploadData.isError ? "#FF868E" : "white"
+                        }}
                     >
                         <input
                             type="file"
                             accept="image/*"
                             style={{ display: "none" }}
                             ref={refFile}
-                            onChange={(e) => handleChange(e)}
+                            onChange={handleChange}
                         />
                         {Object.keys(image).length > 0 ? (
                             <div className={styles.imageSelected}>
@@ -149,16 +164,43 @@ const Popup: FC<Modal> = ({ modal, setModal }) => {
                     {Object.keys(image).length > 0 ? (
                         [
                             <Typography marginTop="20px" marginBottom="20px">
-                                Image File Name: {image?.data?.name}
+                                Image File Name: {image?.name}
                             </Typography>,
-                            <Button onClick={handleUplaod} customStyle={true}>
+                            <button
+                                className={styles.specialButt}
+                                onClick={(e) => handleUpload(e)}
+                                type="submit"
+                                disabled={uploadData.isLoading}
+                            >
+                                {uploadData.isLoading && (
+                                    <span
+                                        className={styles.loader}
+                                        style={{ marginRight: "10px" }}
+                                    ></span>
+                                )}
                                 UPLOAD PHOTO
-                            </Button>
+                            </button>
                         ]
                     ) : (
                         <Typography marginTop="20px">
                             No file selected
                         </Typography>
+                    )}
+                    {uploadData.isSuccess && (
+                        <div className={styles.stateUpload}>
+                            <Typography>
+                                <Success />
+                                Thanks for the Upload - Cat found!
+                            </Typography>
+                        </div>
+                    )}
+                    {uploadData.isError && (
+                        <div className={styles.stateUpload}>
+                            <Typography>
+                                <Failed />
+                                No Cat found - try a different one!
+                            </Typography>
+                        </div>
                     )}
                 </div>
             </div>

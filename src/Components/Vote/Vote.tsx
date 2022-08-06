@@ -1,5 +1,5 @@
 import { Grid, Input, Paper, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { SideBlockLayout } from "../../Layouts/SideBlockLayout";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import NavMenu from "../NavMenu/NavMenu";
@@ -14,36 +14,43 @@ import { ReactComponent as Fav } from "./../../assets/icons/fav.svg";
 import { ReactComponent as Like } from "./../../assets/icons/like.svg";
 import { ReactComponent as Dislike } from "./../../assets/icons/dislike.svg";
 import moment from "moment";
+import cx from "classnames";
 interface RandomCat {
     id?: string;
     url?: string;
 }
 const Vote = () => {
-    const handleClick = () => {};
+    const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+
     const {
         data,
         isFetching,
         refetch: getRandom
-    } = useQuery<RandomCat[] | any>(["get random cat"], () =>
-        breedsService.getRandomImageVote()
+    } = useQuery<RandomCat[] | any>(
+        ["get random cat"],
+        () => breedsService.getRandomImageVote(),
+        {
+            onSuccess() {
+                setImageLoaded(false);
+            }
+        }
     );
 
-   
-   
     const getVotes = useQuery(["get votes"], breedsService.getVotes);
     const getFav = useQuery(["get Fav"], breedsService.getFavourites);
-    const makeFav = useMutation(["make Fav"], breedsService.makeFavourite,{
+    const makeFav = useMutation(["make Fav"], breedsService.makeFavourite, {
         onSuccess() {
             getVotes.refetch();
             getFav.refetch();
+            setImageLoaded(false);
             getRandom();
-        },
+        }
     });
-    const makeVotes = useMutation(["make Vote"], breedsService.makeVote,{
+    const makeVotes = useMutation(["make Vote"], breedsService.makeVote, {
         onSuccess() {
             getVotes.refetch();
             getRandom();
-        },
+        }
     });
     const handleVote = async (val: number, id?: string) => {
         const data = {
@@ -59,6 +66,8 @@ const Vote = () => {
         };
         await makeFav.mutateAsync({ data: data });
     };
+    console.log(imageLoaded);
+
     return (
         <SideBlockLayout>
             <>
@@ -67,47 +76,47 @@ const Vote = () => {
                     <Grid item xs={12} style={{ width: "100%" }}>
                         {!isFetching ? (
                             <div className={styles.wrapperVote}>
-                                {data.map((obj: RandomCat, key: number) => {
-                                    return (
-                                        <div
-                                            key={key}
-                                            style={{
-                                                width: "100%",
-                                                display: "flex",
-                                                justifyContent: "center"
-                                            }}
+                                <div
+                                    key={data[0].id}
+                                    style={{
+                                        width: "100%",
+                                        display: "flex",
+                                        justifyContent: "center"
+                                    }}
+                                >
+                                    <img
+                                        src={data[0]?.url}
+                                        alt={data[0]?.url}
+                                        className={cx(styles.smooth, {
+                                            [styles.loaded]: imageLoaded,
+                                            [styles.none]: !imageLoaded
+                                        })}
+                                        onLoad={() => setImageLoaded(true)}
+                                    />
+                                    <div className={styles.wrapperIconsVoting}>
+                                        <button
+                                            onClick={(e) =>
+                                                handleVote(1, data[0]?.id)
+                                            }
                                         >
-                                            <img src={obj?.url}></img>
-                                            <div
-                                                className={
-                                                    styles.wrapperIconsVoting
-                                                }
-                                            >
-                                                <button
-                                                    onClick={(e) =>
-                                                        handleVote(1, obj?.id)
-                                                    }
-                                                >
-                                                    <Like />
-                                                </button>
-                                                <button
-                                                    onClick={(e) =>
-                                                        handleFav(obj?.id)
-                                                    }
-                                                >
-                                                    <Fav />
-                                                </button>
-                                                <button
-                                                    onClick={(e) =>
-                                                        handleVote(-1, obj?.id)
-                                                    }
-                                                >
-                                                    <Dislike />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                                            <Like />
+                                        </button>
+                                        <button
+                                            onClick={(e) =>
+                                                handleFav(data[0]?.id)
+                                            }
+                                        >
+                                            <Fav />
+                                        </button>
+                                        <button
+                                            onClick={(e) =>
+                                                handleVote(-1, data[0]?.id)
+                                            }
+                                        >
+                                            <Dislike />
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         ) : (
                             <h1>loading...</h1>

@@ -92,9 +92,11 @@ export const breedsService = {
                 return res.data;
             });
     },
-    async uploadImage(data: any) {
+    async uploadImage(file: any) {
+        console.log(file);
+        
         return await instance
-            .post(`images/upload`, data)
+            .post(`/images/upload`, file)
             .then((res: AxiosResponse) => {
                 return res.data;
             });

@@ -25,16 +25,75 @@
         line-height: 1.5;
         color: #8c8c8c;
     }
-    Button{
+    .specialButt {
         width: 20%;
         height: 40px;
         font-weight: 500;
-    }    .wrapperAddImage {
+        font-size: 14px;
+        color: #fff;
+        background: #ff868e;
+        border: none;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .stateUpload {
+        background: #fff;
+        width: 100%;
+        padding: 20px;
+        display: inline-flex;
+        justify-content: flex-start;
+        border-radius: 20px;
+        margin-top: 20px;
+        p {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                width: 30px;
+                height: 30px;
+                margin-right: 15px;
+            }
+        }
+    }
+    .loader {
+        width: 20px;
+        height: 20px;
+        border: 3px solid #fff;
+        border-bottom-color: #ff868e;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    .wrapperAddImage {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-
+        h2{
+            font-family: Jost;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1d1d1d;
+        }
         .placeImage {
             width: 100%;
             height: 450px;
