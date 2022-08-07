@@ -25,13 +25,18 @@ interface GetBreedProps {
 const Breeds = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const queryStringSeach = queryString.parse(useLocation().search);
+    const [imageLoaded, setImageLoaded] = React.useState<boolean>(false);
     const handleClick = () => {};
     const refresh = useRefresh();
     const test = searchParams.get("breed");
     const limit = searchParams.get("limit");
     const order = searchParams.get("order");
 
-    const breedChange = useMutation(breedsService.getBreedsById);
+    const breedChange = useMutation(breedsService.getBreedsById, {
+        onSuccess() {
+            setImageLoaded(false);
+        }
+    });
     useEffect(() => {
         breedChange.mutateAsync({
             breedId: searchParams.get("breed"),
@@ -47,6 +52,8 @@ const Breeds = () => {
                 <GridCats
                     cats={breedChange.data}
                     isLoading={breedChange.isLoading}
+                    imageLoaded={imageLoaded}
+                    setImageLoaded={setImageLoaded}
                 />
             </>
         </SideBlockLayout>

@@ -7,9 +7,15 @@ import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import { ReactComponent as Fav } from "./../../assets/icons/fav.svg";
 import { ReactComponent as Like } from "./../../assets/icons/like.svg";
 import { ReactComponent as Dislike } from "./../../assets/icons/dislike.svg";
+import { useLocation, useNavigate } from "react-router-dom";
 const NavMenu = () => {
     const [text, setText] = useState<string>("");
+    const navigate = useNavigate();
+    const location = useLocation();
 
+    const handleSearch = () => {
+        navigate(`/search?q=${text}`);
+    };
     return (
         <div className={styles.root}>
             <TextField
@@ -28,7 +34,7 @@ const NavMenu = () => {
                             position="end"
                             className={styles.InputAdornment}
                         >
-                            <button className={styles.iconButton}>
+                            <button className={styles.iconButton} onClick={()=>handleSearch()}>
                                 <SearchIcon />
                             </button>
                         </InputAdornment>
@@ -37,13 +43,22 @@ const NavMenu = () => {
                 }}
             />
             <div className={styles.wrapperIcons}>
-                <ButtonIcon>
+                <ButtonIcon
+                    onClick={() => navigate("/likes")}
+                    active={location.pathname === "/likes"}
+                >
                     <Like />
                 </ButtonIcon>
-                <ButtonIcon>
+                <ButtonIcon
+                    onClick={() => navigate("/favourites")}
+                    active={location.pathname === "/favourites"}
+                >
                     <Fav />
                 </ButtonIcon>
-                <ButtonIcon>
+                <ButtonIcon
+                    onClick={() => navigate("/dislikes")}
+                    active={location.pathname === "/dislikes"}
+                >
                     <Dislike />
                 </ButtonIcon>
             </div>

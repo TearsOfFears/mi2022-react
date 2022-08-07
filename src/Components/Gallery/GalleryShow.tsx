@@ -9,7 +9,7 @@ import styles from "./GalleryShow.module.scss";
 const GalleryShow = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     // const queryStringSeach = queryString.parse(useLocation().search);
-    const handleClick = () => {};
+    const [imageLoaded, setImageLoaded] = useState<boolean>(false);
     const [order, setOrder] = useState<string>("");
     const [breed, setBreed] = useState<string>("");
     const [type, setType] = useState<string>("");
@@ -26,7 +26,15 @@ const GalleryShow = () => {
         data.map((obj: any) => ({ value: obj.id, nameBreed: obj.name }));
     !isLoading && breedsArr.unshift({ value: "", nameBreed: "None" });
 
-    const gallery = useMutation(["fetch Gallery"], breedsService.getBreedsById);
+    const gallery = useMutation(
+        ["fetch Gallery"],
+        breedsService.getBreedsById,
+        {
+            onSuccess() {
+                setImageLoaded(false);
+            }
+        }
+    );
 
     useEffect(() => {
         gallery.mutateAsync({
@@ -117,8 +125,12 @@ const GalleryShow = () => {
             </div>
             <GridCats
                 cats={gallery.data}
+                isNav={true}
                 gallery={true}
+                activeFav={false}
                 isLoading={gallery.isLoading}
+                imageLoaded={imageLoaded}
+                setImageLoaded={setImageLoaded}
             />
         </>
     );

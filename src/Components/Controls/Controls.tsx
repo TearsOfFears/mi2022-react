@@ -30,10 +30,14 @@ import Popup from "../Modal/Popup";
 import { CSSTransition } from "react-transition-group";
 
 interface ControlsProps {
-    voting?: boolean;
     breeds?: boolean;
     gallery?: boolean;
     breedsCurrent?: boolean;
+    nav?: boolean;
+    voting?: boolean | any;
+    likes?: boolean | any;
+    favourite?: boolean | any;
+    dislikes?: boolean | any;
 }
 
 interface Breeds {
@@ -46,11 +50,16 @@ interface GetBreedProps {
 
 const Controls: FC<ControlsProps> = ({
     voting,
+    likes,
+    favourite,
+    dislikes,
     breeds,
     gallery,
+    nav,
     breedsCurrent
 }) => {
     const { id } = useParams();
+    const location = useLocation();
     const navigate = useNavigate();
     const handleClick = () => {};
 
@@ -86,7 +95,6 @@ const Controls: FC<ControlsProps> = ({
         setModal
     };
 
-
     return (
         <>
             {voting && (
@@ -103,7 +111,29 @@ const Controls: FC<ControlsProps> = ({
                         onClick={handleClick}
                         customStyle={true}
                     >
-                        VOTING
+                        {voting && "voting"}
+                    </Button>
+                </div>
+            )}
+            {nav && (
+                <div className={styles.rootVoting}>
+                    <ButtonIcon
+                        size={40}
+                        radius={10}
+                        bgColor={theme.palette.primary.light}
+                        mr="0 15px 0px 0"
+                    >
+                        <BackArrow />
+                    </ButtonIcon>
+                    <Button
+                        fontWeight={600}
+                        onClick={handleClick}
+                        active={true}
+                    >
+                        {voting && "voting"}
+                        {likes && "likes"}
+                        {favourite && "favourite"}
+                        {dislikes && "dislikes"}
                     </Button>
                 </div>
             )}
@@ -243,7 +273,7 @@ const Controls: FC<ControlsProps> = ({
                         classNames={{
                             enter: styles.enter,
                             enterActive: styles.enterActive,
-                            exit: styles.exitActive,
+                            exit: styles.exitActive
                         }}
                         mountOnEnter
                         unmountOnExit

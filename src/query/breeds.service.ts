@@ -94,17 +94,23 @@ export const breedsService = {
     },
     async uploadImage(file: any) {
         console.log(file);
-        
+
         return await instance
             .post(`/images/upload`, file)
             .then((res: AxiosResponse) => {
                 return res.data;
             });
+    },
+    async searchBreed(q: string) {
+        return await instance
+            .get(`/breeds/search?q=${q}`)
+            .then((res: AxiosResponse) => {
+                return res.data;
+            });
+    },
+    async deleteFav(favourite_id: string) {
+        return await instance.delete(`/favourites/${favourite_id}`);
     }
-    //
-    // async deleteComment(id){
-    //     return await axios.get(`/commentDelete/${id}`)
-    // },
     // async setUserLike(params){
     //    return await axios.patch('/auth/user/setLike', params)
 };

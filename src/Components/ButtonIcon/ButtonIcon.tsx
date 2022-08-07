@@ -7,9 +7,10 @@ interface ButtonIconProps {
     radius?: number;
     onClick?: () => void;
     bgColor?: string;
-    controls?:boolean;
-    active?:boolean;
-    mr?:string
+    controls?: boolean;
+    active?: boolean;
+    activeFav?: boolean;
+    mr?: string;
 }
 const ButtonIcon: FC<ButtonIconProps> = ({
     children,
@@ -19,18 +20,21 @@ const ButtonIcon: FC<ButtonIconProps> = ({
     radius,
     bgColor,
     active,
+    activeFav,
     mr
 }) => {
     return (
         <button
-            className={`${styles.button} ${controls && styles.buttonControls } ${active && styles.active}`}
+            className={`${styles.button} ${controls && styles.buttonControls} ${
+                active && styles.active
+            } ${activeFav && styles.activeFav}`}
             onClick={onClick}
             style={{
                 width: size,
                 height: size,
                 borderRadius: radius,
                 background: bgColor,
-                margin:mr
+                margin: mr
             }}
         >
             {children}
