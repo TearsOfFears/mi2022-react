@@ -1,5 +1,5 @@
 import { IconButton, Input, InputAdornment, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import styles from "./NavMenu.module.scss";
 import { ReactComponent as SearchIcon } from "./../../assets/icons/search.svg";
@@ -7,15 +7,20 @@ import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import { ReactComponent as Fav } from "./../../assets/icons/fav.svg";
 import { ReactComponent as Like } from "./../../assets/icons/like.svg";
 import { ReactComponent as Dislike } from "./../../assets/icons/dislike.svg";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 const NavMenu = () => {
-    const [text, setText] = useState<string>("");
+    const [params, setParams] = useSearchParams();
+    const [text, setText] = useState<string | any>("");
     const navigate = useNavigate();
     const location = useLocation();
+    const textQuery = params.get("q");
 
     const handleSearch = () => {
         navigate(`/search?q=${text}`);
     };
+    useEffect(() => {
+        setText(textQuery);
+    }, [textQuery]);
     return (
         <div className={styles.root}>
             <TextField
@@ -34,7 +39,10 @@ const NavMenu = () => {
                             position="end"
                             className={styles.InputAdornment}
                         >
-                            <button className={styles.iconButton} onClick={()=>handleSearch()}>
+                            <button
+                                className={styles.iconButton}
+                                onClick={() => handleSearch()}
+                            >
                                 <SearchIcon />
                             </button>
                         </InputAdornment>

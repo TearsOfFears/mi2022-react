@@ -11,9 +11,7 @@ const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             refetchOnWindowFocus: false,
-            refetchOnReconnect: false,
-            retry: false,
-            staleTime: 5 * 1000
+            refetchOnReconnect: false
         }
     }
 });
@@ -24,12 +22,12 @@ const root = ReactDOM.createRoot(
 root.render(
     <>
         <BrowserRouter>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <QueryClientProvider client={queryClient}>
+            <QueryClientProvider client={queryClient}>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
                     <App />
-                </QueryClientProvider>
-            </ThemeProvider>
+                </ThemeProvider>
+            </QueryClientProvider>
         </BrowserRouter>
     </>
 );

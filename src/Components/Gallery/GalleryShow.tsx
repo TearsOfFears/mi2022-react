@@ -3,8 +3,11 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { breedsService } from "../../query/breeds.service";
+import { ReactComponent as Reload } from "./../../assets/icons/reload.svg";
 import GridCats from "../Breeds/GridCats/GridCats";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import styles from "./GalleryShow.module.scss";
+import { useRefresh } from "../../hooks/useRefresh";
 
 const GalleryShow = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -17,6 +20,7 @@ const GalleryShow = () => {
     // const test = searchParams.get("breed");
     // const limit = searchParams.get("limit");
     // const order = searchParams.get("order");
+    const refresh = useRefresh();
     const { data, isLoading } = useQuery<any>(
         ["fetch breeds"],
         breedsService.getAllCats
@@ -42,8 +46,8 @@ const GalleryShow = () => {
             limit: limit,
             breedId: breed,
             type: type
-        });
-    }, [order, limit, breed, type]);
+        })
+    }, []);
 
     return (
         <>
@@ -105,7 +109,7 @@ const GalleryShow = () => {
                             </select>
                         </div>
 
-                        <div>
+                        <div style={{ display: "inline-flex" }}>
                             <label htmlFor="">Limit</label>
                             <select
                                 value={limit}
@@ -119,6 +123,20 @@ const GalleryShow = () => {
                                 <option value="15">15 items per page</option>
                                 <option value="20">20 items per page</option>
                             </select>
+                            <ButtonIcon
+                                size={40}
+                                radius={10}
+                                onClick={async () =>
+                                    await gallery.mutateAsync({
+                                        order: order,
+                                        limit: limit,
+                                        breedId: breed,
+                                        type: type
+                                    })
+                                }
+                            >
+                                <Reload />
+                            </ButtonIcon>
                         </div>
                     </div>
                 </div>
@@ -127,7 +145,7 @@ const GalleryShow = () => {
                 cats={gallery.data}
                 isNav={true}
                 gallery={true}
-                activeFav={false}
+                activeFav={true}
                 isLoading={gallery.isLoading}
                 imageLoaded={imageLoaded}
                 setImageLoaded={setImageLoaded}

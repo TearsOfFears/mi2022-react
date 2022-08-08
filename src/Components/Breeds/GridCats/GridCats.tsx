@@ -34,6 +34,17 @@ const GridCats: FC<ICat> = ({
             refresh("get Favourite");
         }
     });
+    const makeFav = useMutation(["make Fav"], breedsService.makeFavourite, {
+        onSuccess() {
+            refresh("get Favourite");
+        }
+    });
+    const handleFav = async (id?: string) => {
+        const data = {
+            image_id: id
+        };
+        await makeFav.mutateAsync({ data: data });
+    };
     const navigate = useNavigate();
     const calcCats = () => {
         var indents = [];
@@ -41,6 +52,9 @@ const GridCats: FC<ICat> = ({
         let size = 5;
         for (let i = 0; i < Math.ceil(cats.length / size); i++) {
             subarray[i] = cats.slice(i * size, i * size + size);
+        }
+        {
+            cats.length === 0 && <h1>NO items</h1>;
         }
 
         for (let index = 0; index < Math.ceil(subarray.length); index++) {
@@ -52,6 +66,7 @@ const GridCats: FC<ICat> = ({
                                 return data.map((item: any) => {
                                     return (
                                         <div
+                                            key={key}
                                             className={
                                                 key % 2 === 0
                                                     ? styles.item
@@ -68,7 +83,13 @@ const GridCats: FC<ICat> = ({
                                                 >
                                                     {gallery ? (
                                                         activeFav ? (
-                                                            <ButtonIcon>
+                                                            <ButtonIcon
+                                                                onClick={() =>
+                                                                    handleFav(
+                                                                        item?.id
+                                                                    )
+                                                                }
+                                                            >
                                                                 <Like />
                                                             </ButtonIcon>
                                                         ) : (

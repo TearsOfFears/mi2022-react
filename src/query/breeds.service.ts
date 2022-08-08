@@ -101,9 +101,16 @@ export const breedsService = {
                 return res.data;
             });
     },
-    async searchBreed(q: string) {
+    async searchBreed(q: string | any) {
         return await instance
             .get(`/breeds/search?q=${q}`)
+            .then((res: AxiosResponse) => {
+                return res.data;
+            });
+    },
+    async getImageById(id: string ) {
+        return await instance
+            .get(`/images/${id}`)
             .then((res: AxiosResponse) => {
                 return res.data;
             });

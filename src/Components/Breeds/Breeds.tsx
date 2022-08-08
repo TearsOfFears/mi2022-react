@@ -52,6 +52,7 @@ const Breeds = () => {
                 <GridCats
                     cats={breedChange.data}
                     isLoading={breedChange.isLoading}
+                    isNav={true}
                     imageLoaded={imageLoaded}
                     setImageLoaded={setImageLoaded}
                 />
