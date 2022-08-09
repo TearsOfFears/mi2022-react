@@ -1,13 +1,6 @@
 import { Grid, Input, Paper } from "@mui/material";
 import React, { useEffect, useRef } from "react";
 import { SideBlockLayout } from "../../Layouts/SideBlockLayout";
-import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import NavMenu from "../NavMenu/NavMenu";
-import styles from "./Breeds.module.scss";
-import { ReactComponent as BackArrow } from "./../../assets/icons/backArrow.svg";
-
-import { Button } from "../Button/Button";
-import { theme } from "../../theme";
 import Controls from "../Controls/Controls";
 import axios, { AxiosResponse } from "axios";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
@@ -44,7 +37,8 @@ const Breeds = () => {
             order: searchParams.get("order")
         });
     }, [test, limit, order]);
-
+    console.log(breedChange.isLoading);
+    
     return (
         <SideBlockLayout>
             <>

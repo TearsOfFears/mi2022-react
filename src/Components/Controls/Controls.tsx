@@ -38,6 +38,7 @@ interface ControlsProps {
     likes?: boolean | any;
     favourite?: boolean | any;
     dislikes?: boolean | any;
+    searchP?: boolean | any;
 }
 
 interface Breeds {
@@ -56,7 +57,8 @@ const Controls: FC<ControlsProps> = ({
     breeds,
     gallery,
     nav,
-    breedsCurrent
+    breedsCurrent,
+    searchP,
 }) => {
     const { id } = useParams();
     const location = useLocation();
@@ -103,6 +105,7 @@ const Controls: FC<ControlsProps> = ({
                         size={40}
                         radius={10}
                         bgColor={theme.palette.primary.light}
+                        onClick={()=>navigate("/")}
                     >
                         <BackArrow />
                     </ButtonIcon>
@@ -122,6 +125,7 @@ const Controls: FC<ControlsProps> = ({
                         radius={10}
                         bgColor={theme.palette.primary.light}
                         mr="0 15px 0px 0"
+                        onClick={()=>navigate("/")}
                     >
                         <BackArrow />
                     </ButtonIcon>
@@ -134,7 +138,9 @@ const Controls: FC<ControlsProps> = ({
                         {likes && "likes"}
                         {favourite && "favourite"}
                         {dislikes && "dislikes"}
+                        {searchP && "search"}
                     </Button>
+                   
                 </div>
             )}
             {breedsCurrent && (
@@ -165,6 +171,7 @@ const Controls: FC<ControlsProps> = ({
                             radius={10}
                             mr="0px 10px 0px 0px"
                             bgColor={theme.palette.primary.light}
+                            onClick={()=>navigate("/")}
                         >
                             <BackArrow />
                         </ButtonIcon>
@@ -246,6 +253,7 @@ const Controls: FC<ControlsProps> = ({
                             radius={10}
                             bgColor={theme.palette.primary.light}
                             mr="0px 10px 0px 0px"
+                            onClick={()=>navigate("/")}
                         >
                             <BackArrow />
                         </ButtonIcon>

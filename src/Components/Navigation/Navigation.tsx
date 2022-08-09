@@ -13,8 +13,9 @@ import { Button } from "../Button/Button";
 // interface UserListProps{
 //     users:IUser[]
 // }
+import classNames from "classnames";
 const Navigation: FC = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const location = useLocation();
     const arrRender = [
         {
@@ -36,34 +37,49 @@ const Navigation: FC = () => {
             styles: styles.third
         }
     ];
-    const handleNavigate  = (link:string)=>{
-        navigate(link)
-    }
-    
+    const handleNavigate = (link: string) => {
+        navigate(link);
+    };
+
     return (
-        <Grid item xs={4}>
-            <Grid container flexDirection="column" className={styles.root}>
-                <div>
-                    <img src={Logo} />
-                </div>
-                <div>
-                    <div className={styles.wrapperText}>
-                        <Typography variant="h1">Hi intern!</Typography>
-                        <Typography variant="h3">
-                            Welcome to MI 2022 Front-end test
-                        </Typography>
+        <Grid item lg={4} xs={12}>
+            <Grid container flexDirection="column" className={classNames(styles.root, {[styles.hide]:location.pathname !=="/"})   }>
+                <div className={styles.fixed}>
+                    <div className={styles.wrapperNav}>
+                        <div>
+                            <img src={Logo} />
+                        </div>
+                        <div>
+                            <div className={styles.wrapperText}>
+                                <Typography variant="h1">Hi intern!</Typography>
+                                <Typography variant="h3">
+                                    Welcome to MI 2022 Front-end test
+                                </Typography>
+                            </div>
+                            <Typography>
+                                Lets start using The Cat API
+                            </Typography>
+                            <ul>
+                                {arrRender.map((data, key) => (
+                                    <li key={key}>
+                                        <div className={data.styles}>
+                                            <img src={data.img} />
+                                        </div>
+                                        <Button
+                                            active={
+                                                data.link === location.pathname
+                                            }
+                                            onClick={() =>
+                                                handleNavigate(data.link)
+                                            }
+                                        >
+                                            {data.text}{" "}
+                                        </Button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
-                    <Typography>Lets start using The Cat API</Typography>
-                    <ul>
-                        {arrRender.map((data, key) => (
-                            <li key={key}>
-                                <div className={data.styles}>
-                                    <img src={data.img} />
-                                </div>
-                                <Button active={data.link===location.pathname} onClick={()=>handleNavigate(data.link) }>{data.text} </Button>
-                            </li>
-                        ))}
-                    </ul>
                 </div>
             </Grid>
         </Grid>

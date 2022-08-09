@@ -105,7 +105,7 @@ export const breedsService = {
         return await instance
             .get(`/breeds/search?q=${q}`)
             .then((res: AxiosResponse) => {
-                return res.data;
+                return res.data
             });
     },
     async getImageById(id: string ) {

@@ -7,10 +7,14 @@ import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import { ReactComponent as Fav } from "./../../assets/icons/fav.svg";
 import { ReactComponent as Like } from "./../../assets/icons/like.svg";
 import { ReactComponent as Dislike } from "./../../assets/icons/dislike.svg";
+import { ReactComponent as Burger } from "./../../assets/icons/Burger.svg";
+import { ReactComponent as CloseBurger } from "./../../assets/icons/CloseBurger.svg";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import classNames from "classnames";
 const NavMenu = () => {
     const [params, setParams] = useSearchParams();
     const [text, setText] = useState<string | any>("");
+    const [openBurger, setOpenBurger] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     const textQuery = params.get("q");
@@ -21,8 +25,30 @@ const NavMenu = () => {
     useEffect(() => {
         setText(textQuery);
     }, [textQuery]);
+    const toggleBurger = () => {
+        setOpenBurger(!openBurger);
+    };
+    console.log();
+
     return (
         <div className={styles.root}>
+            {window.innerWidth < 768 && (
+                <>
+                    <ButtonIcon onClick={toggleBurger}>
+                        <Burger />
+                    </ButtonIcon>
+                    <div
+                        className={classNames(styles.hide, {
+                            [styles.open]: openBurger
+                        })}
+                    >
+                        <ButtonIcon onClick={toggleBurger}>
+                            <CloseBurger />
+                        </ButtonIcon>
+                    </div>
+                </>
+            )}
+
             <TextField
                 placeholder="Search for breeds by name"
                 className={
@@ -53,19 +79,19 @@ const NavMenu = () => {
             <div className={styles.wrapperIcons}>
                 <ButtonIcon
                     onClick={() => navigate("/likes")}
-                    active={location.pathname === "/likes"}
+                    activeFav={location.pathname === "/likes"}
                 >
                     <Like />
                 </ButtonIcon>
                 <ButtonIcon
                     onClick={() => navigate("/favourites")}
-                    active={location.pathname === "/favourites"}
+                    activeFav={location.pathname === "/favourites"}
                 >
                     <Fav />
                 </ButtonIcon>
                 <ButtonIcon
                     onClick={() => navigate("/dislikes")}
-                    active={location.pathname === "/dislikes"}
+                    activeFav={location.pathname === "/dislikes"}
                 >
                     <Dislike />
                 </ButtonIcon>

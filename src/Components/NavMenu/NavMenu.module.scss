@@ -1,3 +1,4 @@
+@import "./../../main.scss";
 .root {
     display: flex;
     flex-direction: row;
@@ -6,7 +7,8 @@
     .activeBorder {
         border: 2px solid #ff868e !important;
     }
-    .textField,.activeBorder {
+    .textField,
+    .activeBorder {
         width: 570px;
         background-color: white;
         border-radius: 20px;
@@ -66,20 +68,55 @@
                 cursor: pointer;
                 background-color: #ff868e;
                 transition: 0.5s;
-                svg{
-                    path{
+                svg {
+                    path {
                         transition: 0.5s;
-                        fill:white;
+                        fill: white;
                     }
                 }
             }
         }
     }
-    .wrapperIcons{
+    .wrapperIcons {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         width: 25%;
     }
+}
+
+@include breakpoint(xs) {
+    .root {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        width: 100%;
+        .activeBorder {
+            border: 2px solid #ff868e !important;
+        }
+        .hide {
+            opacity: 0;
+            display: none;
+            transition: opacity .5s;
+        }
+        .open {
+            position: absolute;
+            opacity: 1;
+            display: block;
+            transition: opacity .5s;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100vh;
+            //background:#F8F8F7;
+            background:red;
+            z-index: 3;
+        }
+    }
+    
 }

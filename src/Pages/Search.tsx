@@ -6,15 +6,18 @@ import Controls from "../Components/Controls/Controls";
 import { SideBlockLayout } from "../Layouts/SideBlockLayout";
 import { breedsService } from "../query/breeds.service";
 import queryString from "query-string";
+import { Typography } from "@mui/material";
 const Search = () => {
     const [params, setParams] = useSearchParams();
     const queryStringSeach = queryString.parse(useLocation().search);
     const text = queryStringSeach.q;
     const [imageLoaded, setImageLoaded] = React.useState<boolean>(false);
+    // const [arr, setArr] = React.useState<any>([]);
     const navigate = useNavigate();
     const {
         data: search,
         mutate,
+        isSuccess,
         isLoading
     } = useMutation(["search"], breedsService.searchBreed);
 
@@ -25,33 +28,42 @@ const Search = () => {
             navigate("/");
         }
     }, [text]);
-
-    let test = [];
+    let arr = [];
     if (!isLoading && Array.isArray(search)) {
-        test = search.map((data: any, key: number) => {
+        arr = search.map((data: any, key: number) => {
             return data.reference_image_id;
         });
     }
-
     const testQ = useQueries({
-        queries: test?.map((id: any) => {
+        queries: (isLoading ? [...Array(5)] : arr).map((id: any) => {
             return {
                 queryKey: ["image", id],
                 queryFn: () => breedsService.getImageById(id)
             };
         })
     });
-    const arrLoading = testQ.map((obj) => obj.isLoading).every(val => val===false);
+
+    const arrLoading = testQ.some((result) => result.isLoading);
     const arrRender = testQ.map((obj) => obj.data);
-    console.log(arrLoading);
 
     return (
         <SideBlockLayout>
             <>
-                <Controls gallery={true} />
+                <Controls nav={true} searchP={true} />
+
+                <Typography
+                    mt="15px"
+                    style={{ fontSize: "23px", color: " #8c8c8c" }}
+                >
+                    Search results for:{" "}
+                    <span style={{ fontWeight: "600", color: " #1d1d1d" }}>
+                        {text}
+                    </span>
+                </Typography>
+
                 <GridCats
                     cats={arrRender}
-                    isLoading={!arrLoading}
+                    isLoading={arrLoading}
                     isNav={true}
                     // imageLoaded={imageLoaded}
                     // setImageLoaded={setImageLoaded}
