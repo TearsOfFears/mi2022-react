@@ -50,44 +50,87 @@ const NavMenu = () => {
     const handleNavigate = (link: string) => {
         navigate(link);
     };
-    openBurger
-    ? (document.body.style.overflow = "hidden")
-    : (document.body.style.overflow = "visible");
     return (
         <div className={styles.root}>
-            <TextField
-                placeholder="Search for breeds by name"
-                className={
-                    text?.length > 0 ? styles.activeBorder : styles.textField
-                }
-                variant="standard"
-                value={text}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setText(e.target.value)
-                }
-                InputProps={{
-                    endAdornment: (
-                        <InputAdornment
-                            position="end"
-                            className={styles.InputAdornment}
-                        >
-                            <button
-                                className={styles.iconButton}
-                                onClick={() => handleSearch()}
-                            >
-                                <SearchIcon />
-                            </button>
-                        </InputAdornment>
-                    ),
-                    disableUnderline: true
-                }}
-            />
+            {window.innerWidth < 600 && (
+                <>
+                    <TextField
+                        placeholder="Search for breeds by name"
+                        className={
+                            text?.length > 0
+                                ? styles.activeBorder
+                                : styles.textField
+                        }
+                        variant="standard"
+                        value={text}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setText(e.target.value)
+                        }
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment
+                                    position="end"
+                                    className={styles.InputAdornment}
+                                >
+                                    <button
+                                        className={styles.iconButton}
+                                        onClick={() => handleSearch()}
+                                    >
+                                        <SearchIcon />
+                                    </button>
+                                </InputAdornment>
+                            ),
+                            disableUnderline: true
+                        }}
+                    />
+                    <CSSTransition
+                        in={openBurger}
+                        timeout={500}
+                        transitionLeaveTimeout={3000000}
+                        classNames={{
+                            enter: styles.enter,
+                            enterActive: styles.enterActive,
+                            enterDone: styles.enterActive,
+                            exitActive: styles.exitActive,
+                            exitDone: styles.exitDone,
+                            exit: styles.exitDone
+                        }}
+                        mountOnEnter
+                        unmountOnExit
+                    >
+                        <div>
+                            <ButtonIcon onClick={toggleBurger}>
+                                <CloseBurger />
+                            </ButtonIcon>
+                            <ul>
+                                {arrRender.map((data, key) => (
+                                    <li key={key}>
+                                        <Button
+                                            active={
+                                                data.link === location.pathname
+                                            }
+                                            onClick={() =>
+                                                handleNavigate(data.link)
+                                            }
+                                        >
+                                            {data.text}{" "}
+                                        </Button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </CSSTransition>
+                </>
+            )}
             <div className={styles.wrapperIcons}>
-                {window.innerWidth < 768 && (
+                {window.innerWidth < 900 && (
+                    <ButtonIcon onClick={toggleBurger}>
+                        <Burger />
+                    </ButtonIcon>
+                )}
+
+                {window.innerWidth > 600 && window.innerWidth < 900 && (
                     <>
-                        <ButtonIcon onClick={toggleBurger}>
-                            <Burger />
-                        </ButtonIcon>
                         <CSSTransition
                             in={openBurger}
                             timeout={500}
@@ -126,6 +169,35 @@ const NavMenu = () => {
                                 </ul>
                             </div>
                         </CSSTransition>
+                        <TextField
+                            placeholder="Search for breeds by name"
+                            className={
+                                text?.length > 0
+                                    ? styles.activeBorder
+                                    : styles.textField
+                            }
+                            variant="standard"
+                            value={text}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => setText(e.target.value)}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment
+                                        position="end"
+                                        className={styles.InputAdornment}
+                                    >
+                                        <button
+                                            className={styles.iconButton}
+                                            onClick={() => handleSearch()}
+                                        >
+                                            <SearchIcon />
+                                        </button>
+                                    </InputAdornment>
+                                ),
+                                disableUnderline: true
+                            }}
+                        />
                     </>
                 )}
                 <div className={styles.icons}>

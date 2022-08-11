@@ -43,7 +43,13 @@ const Navigation: FC = () => {
 
     return (
         <Grid item lg={4} xs={12}>
-            <Grid container flexDirection="column" className={classNames(styles.root, {[styles.hide]:location.pathname !=="/"})   }>
+            <Grid
+                container
+                flexDirection="column"
+                className={classNames(styles.root, {
+                    [styles.hide]: location.pathname !== "/"
+                })}
+            >
                 <div className={styles.fixed}>
                     <div className={styles.wrapperNav}>
                         <div>

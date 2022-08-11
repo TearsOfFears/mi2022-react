@@ -1,10 +1,10 @@
 @mixin breakpoint($class) {
     @if $class == xs {
-        @media (max-width: 600px) {
+        @media screen and (max-width: 600px) {
             @content;
         }
     } @else if $class == sm {
-        @media (min-width: 900px) {
+        @media screen and (max-width: 900px) and (min-width: 600px) {
             @content;
         }
     } @else if $class == md {

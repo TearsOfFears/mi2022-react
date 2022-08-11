@@ -74,15 +74,9 @@
         font-weight: 600;
     }
 }
+
 @include breakpoint(xs) {
     .root {
-       
-        display: flex;
-        background:#F8F8F7;
-        //background:red;;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: space-between;
         width: 100%;
         .fixed {
             position: relative;
@@ -120,25 +114,67 @@
                 }
             }
         }
-        h1 {
-            font-size: 44px;
-            color: #1d1d1d;
-            font-size: 44px;
-            font-weight: 600;
-            line-height: 1.32;
-            margin-bottom: 20px;
-        }
-        h3 {
-            color: #8c8c8c;
-            font-size: 20px;
-        }
-        p {
-            font-size: 20px;
-            color: #1d1d1d;
-            font-weight: 600;
-        }
     }
-    .hide{
+    .hide {
+        display: none !important;
+    }
+}
+
+@include breakpoint(sm) {
+    .root {
+        width: 100%;
+        .fixed {
+            position: relative;
+            display: flex;
+            width: 100%;
+        }
+        .wrapperNav {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            width: 100%;
+            height: 85vh;
+            padding: 20px;
+            div {
+                width: 100%;
+            }
+        }
+        .wrapperText {
+           margin-top: 50px;
+        }
+        ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            padding: 0;
+            li {
+                margin-right: 20px;
+                width: 100%;
+                margin-bottom: 15px;
+                text-align: center;
+                &:nth-child(3){
+                    margin-right: 0px;
+                }
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 200px;
+                    width: 140px;
+                    border-radius: 20px;
+
+                    background-clip: padding-box;
+                    margin-bottom: 25px;
+                }
+            }
+        }
+   
+    }
+    .hide {
         display: none !important;
     }
 }
