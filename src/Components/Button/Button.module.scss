@@ -1,3 +1,4 @@
+@import "./../../main.scss";
 .button {
     border-radius: 10px;
     background: rgba(255, 255, 255, 1);
@@ -75,15 +76,13 @@
     padding: 10px;
     width: 100%;
     font-family: Jost;
-    font-size: 12px;
-    font-weight: 600;
     height: 40px;
     line-height: 1.33;
     letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
     transition: 0.5s;
-  
+
     svg {
         fill: white;
 
@@ -91,5 +90,15 @@
             fill: white;
             transition: 0.5s;
         }
+    }
+}
+
+@include breakpoint(xs) {
+    .button,
+    .active {
+        font-size: 18px;
+    }
+    .secondButton {
+        width: 100%;
     }
 }

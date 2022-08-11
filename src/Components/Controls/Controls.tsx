@@ -58,7 +58,7 @@ const Controls: FC<ControlsProps> = ({
     gallery,
     nav,
     breedsCurrent,
-    searchP,
+    searchP
 }) => {
     const { id } = useParams();
     const location = useLocation();
@@ -105,14 +105,16 @@ const Controls: FC<ControlsProps> = ({
                         size={40}
                         radius={10}
                         bgColor={theme.palette.primary.light}
-                        onClick={()=>navigate("/")}
+                        onClick={() => navigate("/")}
+                        mr={"0 10px 0 0"}
                     >
                         <BackArrow />
                     </ButtonIcon>
                     <Button
                         fontWeight={600}
                         onClick={handleClick}
-                        customStyle={true}
+                        
+                        active={true}
                     >
                         {voting && "voting"}
                     </Button>
@@ -124,8 +126,8 @@ const Controls: FC<ControlsProps> = ({
                         size={40}
                         radius={10}
                         bgColor={theme.palette.primary.light}
-                        mr="0 15px 0px 0"
-                        onClick={()=>navigate("/")}
+                        mr={"0 10px 0 0"}
+                        onClick={() => navigate("/")}
                     >
                         <BackArrow />
                     </ButtonIcon>
@@ -140,7 +142,6 @@ const Controls: FC<ControlsProps> = ({
                         {dislikes && "dislikes"}
                         {searchP && "search"}
                     </Button>
-                   
                 </div>
             )}
             {breedsCurrent && (
@@ -148,6 +149,7 @@ const Controls: FC<ControlsProps> = ({
                     <ButtonIcon
                         size={40}
                         radius={10}
+                        mr={"0px 10px 0px 0px "}
                         bgColor={theme.palette.primary.light}
                         onClick={() => navigate("/breeds")}
                     >
@@ -156,7 +158,7 @@ const Controls: FC<ControlsProps> = ({
                     <Button
                         fontWeight={600}
                         onClick={handleClick}
-                        customStyle={true}
+                        customStyle
                     >
                         breeds
                     </Button>
@@ -171,14 +173,14 @@ const Controls: FC<ControlsProps> = ({
                             radius={10}
                             mr="0px 10px 0px 0px"
                             bgColor={theme.palette.primary.light}
-                            onClick={()=>navigate("/")}
+                            onClick={() => navigate("/")}
                         >
                             <BackArrow />
                         </ButtonIcon>
                         <Button
                             fontWeight={600}
                             onClick={handleClick}
-                            customStyle={true}
+                            active={true}
                         >
                             breeds
                         </Button>
@@ -205,36 +207,40 @@ const Controls: FC<ControlsProps> = ({
                                 width={230}
                             />
                         )}
-
-                        <select
-                            value={limit}
-                            className={styles.selectMenu}
-                            onChange={(e) => setLimit(Number(e.target.value))}
-                        >
-                            <option value="5" selected>
-                                Limit: 5
-                            </option>
-                            <option value="10">Limit: 10</option>
-                            <option value="15">Limit: 15</option>
-                            <option value="20">Limit: 20</option>
-                        </select>
-                    </div>
-
-                    <div style={{ width: "10%" }}>
-                        <ButtonIcon
-                            controls={true}
-                            active={searchParams.get("order") === "DESC"}
-                            onClick={() => setOrder("DESC")}
-                        >
-                            <SortAsc />
-                        </ButtonIcon>
-                        <ButtonIcon
-                            controls={true}
-                            active={searchParams.get("order") === "ASC"}
-                            onClick={() => setOrder("ASC")}
-                        >
-                            <SortDesc />
-                        </ButtonIcon>
+                        <div className={styles.wrapperOrder}>
+                            <select
+                                value={limit}
+                                className={styles.selectMenu}
+                                onChange={(e) =>
+                                    setLimit(Number(e.target.value))
+                                }
+                            >
+                                <option value="5" selected>
+                                    Limit: 5
+                                </option>
+                                <option value="10">Limit: 10</option>
+                                <option value="15">Limit: 15</option>
+                                <option value="20">Limit: 20</option>
+                            </select>
+                            <div>
+                                <ButtonIcon
+                                    controls={true}
+                                    active={
+                                        searchParams.get("order") === "DESC"
+                                    }
+                                    onClick={() => setOrder("DESC")}
+                                >
+                                    <SortAsc />
+                                </ButtonIcon>
+                                <ButtonIcon
+                                    controls={true}
+                                    active={searchParams.get("order") === "ASC"}
+                                    onClick={() => setOrder("ASC")}
+                                >
+                                    <SortDesc />
+                                </ButtonIcon>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
@@ -252,15 +258,16 @@ const Controls: FC<ControlsProps> = ({
                             size={40}
                             radius={10}
                             bgColor={theme.palette.primary.light}
-                            mr="0px 10px 0px 0px"
-                            onClick={()=>navigate("/")}
+                            mr={"0 10px 0 0"}
+                            onClick={() => navigate("/")}
                         >
                             <BackArrow />
                         </ButtonIcon>
                         <Button
                             fontWeight={600}
                             onClick={handleClick}
-                            customStyle={true}
+                            active={true}
+                         
                         >
                             GALLERY
                         </Button>

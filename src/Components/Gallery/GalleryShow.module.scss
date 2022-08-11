@@ -1,34 +1,43 @@
+@import "./../../main.scss";
 .root {
     width: 100%;
     margin-top: 20px;
     background-color: #f8f8f7;
     border-radius: 20px;
     padding: 10px 20px 20px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    .wrapperSelect {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-evenly;
-        width: 100%;
-     
-    }
 
-    div {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+    .wrapperSelect {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 50px;
         width: 100%;
-        label{
-            margin-top: 10px;
-            font-size: 15px;
-            font-weight: 500;
-            line-height: 1.8;
-            color: #8c8c8c;
+        .wrapperColumn {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            row-gap: 10px;
+            width: 100%;
+            .limitReload {
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    margin-top: 0;
+                    select{
+                        margin-right: 20px;
+                    }
+                }
+            }
+            div {
+                display: flex;
+                flex-direction: column;
+            }
         }
+    }
+    label {
+        margin-top: 0px;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.8;
+        color: #8c8c8c;
     }
     select {
         border: none;
@@ -41,15 +50,15 @@
         font-size: 16px;
         height: 40px;
         color: #8c8c8c;
-        width: 90%;
-      
+        width: 100%;
+
         -webkit-appearance: none;
         -moz-appearance: none;
         background-image: url(./../../assets//icons/arrowSelect.svg);
         background-repeat: no-repeat;
         background-position-x: 95%;
         background-position-y: 50%;
-       
+
         &:hover {
             border: 2px solid #fbe0dc;
             transition: 0.5s;
@@ -63,6 +72,90 @@
             border: 2px solid #fbe0dc !important;
             transition: 0.5s;
             outline: none;
+        }
+    }
+}
+@include breakpoint(xs) {
+    .root {
+        width: 100%;
+        margin-top: 20px;
+        background-color: #f8f8f7;
+        border-radius: 20px;
+        padding: 10px 20px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .wrapperSelect {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 100%;
+            grid-gap:10px;
+            .wrapperColumn {
+                display: flex;
+                flex-direction: column;
+                row-gap: 10px;
+                width: 100%;
+                .limitReload {
+                    div {
+                        display: flex;
+                        flex-direction: column;
+                        margin-top: 0;
+                        button{
+                            width: 100% !important;
+                            margin-top: 10px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .LabelSelect {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            label {
+                margin-top: 10px;
+                font-size: 15px;
+                font-weight: 500;
+                line-height: 1.8;
+                color: #8c8c8c;
+            }
+            &:last-of-type {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        select {
+            border: none;
+            background-color: #fff;
+            border-radius: 10px !important;
+            padding: 5px 10px;
+            border: 2px solid transparent;
+            transition: 0.5s;
+            font-family: Jost;
+            font-size: 16px;
+            height: 40px;
+            color: #1d1d1d;
+            width: 100%;
+            &:hover {
+                border: 2px solid #fbe0dc;
+                transition: 0.5s;
+                cursor: pointer;
+            }
+            &:focus {
+                border: 2px solid #fbe0dc !important;
+                transition: 0.5s;
+            }
+            &:focus-visible {
+                border: 2px solid #fbe0dc !important;
+                transition: 0.5s;
+                outline: none;
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+@import "./../../main.scss";
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -144,6 +145,127 @@
     transition: opacity 0.5s;
 }
 
+@include breakpoint(xs) {
+    .grid {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 10px;
+        margin-top: 20px;
+        .item {
+            position: relative;
+            overflow: hidden;
+            height: 295px;
+            &:hover {
+                .hoverItem,
+                .galleryHoverItem {
+                    opacity: 1;
+                    transition: 0.3s;
+                }
+            }
+            .hoverItem {
+                opacity: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-end;
+                background-color: rgba($color: #ff868e, $alpha: 0.6);
+                border-radius: 20px;
+                transition: 0.3s;
+                padding: 10px;
+            }
+            .galleryHoverItem {
+                opacity: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: rgba($color: #ff868e, $alpha: 0.6);
+                border-radius: 20px;
+                transition: 0.3s;
+                padding: 10px;
+            }
+            img {
+                border-radius: 20px;
+                object-fit: cover;
+                object-position: center right;
+                width: 100%;
+                height: 295px;
+            }
+            &:nth-child(1) {
+                img {
+                    height: 295px;
+                }
+            }
+            &:nth-child(5) {
+                img {
+                    height: 295px;
+                }
+            }
+        }
+        .itemReverse {
+            position: relative;
+            overflow: hidden;
+            &:hover {
+                .hoverItem,
+                .galleryHoverItem {
+                    opacity: 1;
+                    transition: 0.3s;
+                }
+            }
+            .hoverItem {
+                opacity: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-end;
+                background-color: rgba($color: #ff868e, $alpha: 0.6);
+                border-radius: 20px;
+                transition: 0.3s;
+                padding: 10px;
+            }
+            .galleryHoverItem {
+                opacity: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: rgba($color: #ff868e, $alpha: 0.6);
+                border-radius: 20px;
+                transition: 0.3s;
+                padding: 10px;
+            }
+            img {
+                border-radius: 20px;
+                object-fit: cover;
+                object-position: center;
+                width: 100%;
+                height: 295px;
+            }
+            &:nth-child(3) {
+                img {
+                    height: 100%;
+                }
+            }
+            &:nth-child(4) {
+                img {
+                    height: 295px;
+                }
+            }
+        }
+    }
+}
 // .smooth {
 //     -webkit-transition-property: opacity;
 //     transition-property: opacity;

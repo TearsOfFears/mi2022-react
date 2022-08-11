@@ -122,7 +122,7 @@ const Vote = () => {
                             <h1>loading...</h1>
                         )}
                     </Grid>
-                    <Grid item xs={12} marginTop="15px">
+                    <Grid item xs={12} marginTop="15px"  style={{ width: "100%" }}>
                         {!getVotes.isLoading && !getFav.isLoading ? (
                             getVotes.data
                                 .concat(getFav.data)
@@ -138,11 +138,38 @@ const Vote = () => {
                                             key={key}
                                             className={styles.history}
                                         >
-                                            <span className={styles.time}>
-                                                {moment(
-                                                    data?.created_at
-                                                ).format("HH:mm")}
-                                            </span>
+                                            {window.innerWidth < 768 && (
+                                                <div className={styles.mobileWrapper}>
+                                                    <span
+                                                        className={styles.time}
+                                                    >
+                                                        {moment(
+                                                            data?.created_at
+                                                        ).format("HH:mm")}
+                                                    </span>
+
+                                                    {data?.value === 1 && (
+                                                        <>
+                                                            <Like
+                                                                className={
+                                                                    styles.likes
+                                                                }
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {data?.value === -1 && (
+                                                        <>
+                                                            <Dislike
+                                                                className={
+                                                                    styles.disLikes
+                                                                }
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {typeof data.value ===
+                                                        "undefined" && <Fav />}
+                                                </div>
+                                            )}
                                             <Typography variant="h5">
                                                 Image ID:{" "}
                                                 <span>{data?.image_id} </span>
@@ -158,24 +185,30 @@ const Vote = () => {
                                                     <>Favourites</>
                                                 )}
                                             </Typography>
-                                            {data?.value === 1 && (
+                                            {window.innerWidth > 768 && (
                                                 <>
-                                                    <Like
-                                                        className={styles.likes}
-                                                    />
+                                                    {data?.value === 1 && (
+                                                        <>
+                                                            <Like
+                                                                className={
+                                                                    styles.likes
+                                                                }
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {data?.value === -1 && (
+                                                        <>
+                                                            <Dislike
+                                                                className={
+                                                                    styles.disLikes
+                                                                }
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {typeof data.value ===
+                                                        "undefined" && <Fav />}
                                                 </>
                                             )}
-                                            {data?.value === -1 && (
-                                                <>
-                                                    <Dislike
-                                                        className={
-                                                            styles.disLikes
-                                                        }
-                                                    />
-                                                </>
-                                            )}
-                                            {typeof data.value ===
-                                                "undefined" && <Fav />}
                                         </div>
                                     );
                                 })

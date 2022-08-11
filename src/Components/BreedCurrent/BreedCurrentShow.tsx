@@ -52,7 +52,7 @@ const BreedCurrentShow = () => {
                         bottom: "5px",
                         backgroundColor: "#FFFFFF",
                         color: "#FFFFFF",
-                        zIndex: "999999",
+                        zIndex: "2",
                         width: "90px",
                         height: "30px",
                         borderRadius: "20px",
@@ -72,13 +72,7 @@ const BreedCurrentShow = () => {
                     ))}
             </Carousel>
             {!isLoading && (
-                <fieldset
-                    className={styles.breedDetail}
-                    // display="flex"
-                    // flexDirection="column"
-                    // alignItems="center"
-                    // justifyContent="center"
-                >
+                <fieldset className={styles.breedDetail}>
                     <legend style={{ margin: "0 auto" }}>
                         <Typography variant="h1">{dataBreed.name}</Typography>
                     </legend>
@@ -92,7 +86,8 @@ const BreedCurrentShow = () => {
                         columnSpacing={5}
                     >
                         <Grid
-                            xs={4}
+                            lg={4}
+                            xs={12}
                             item
                             alignItems="flex-start"
                             justifyContent="flex-start"
@@ -101,7 +96,7 @@ const BreedCurrentShow = () => {
                             <Typography variant="h5">Temperament:</Typography>
                             <Typography>{dataBreed.temperament}</Typography>
                         </Grid>
-                        <Grid xs={4} item>
+                        <Grid lg={4} xs={12} item>
                             <ul className={styles.list}>
                                 <li>
                                     <Typography variant="h5">

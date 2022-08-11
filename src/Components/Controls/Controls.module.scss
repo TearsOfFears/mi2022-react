@@ -1,3 +1,4 @@
+@import "./../../main.scss";
 .rootVoting {
     display: inline-flex;
     justify-content: space-between;
@@ -10,6 +11,12 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    .wrapperOrder {
+        width: 50%;
+        button:nth-child(1) {
+            margin-right: 20px;
+        }
+    }
     div {
         display: inline-flex;
         justify-content: space-between;
@@ -78,7 +85,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 50%;
+    width: 80%;
+    margin-left: 20px;
 }
 option {
     background-color: #fff;
@@ -103,4 +111,78 @@ option {
 .exitActive {
     opacity: 0;
     transition: opacity 0.5s;
+}
+
+@include breakpoint(xs) {
+    .rootCurrent {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        span {
+            border-radius: 10px;
+            background: #ff868e;
+            color: rgba(255, 255, 255, 1);
+            border: none;
+            letter-spacing: 2;
+            font-size: 20px;
+            padding: 10px;
+            width: 100px;
+            font-family: Jost;
+            font-size: 12px;
+            font-weight: 600;
+            height: 40px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.5s;
+            text-align: center;
+            margin-left: 10px;
+        }
+    }
+    .rootBreeds {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        div {
+            display: inline-flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+    .selectWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%;
+        margin-top: 15px;
+        margin-left: 0;
+        .selectMenu:first-of-type {
+            width: 100%;
+        }
+        .wrapperOrder {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            button:nth-child(1) {
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+        }
+    }
+    .rootGallery {
+        display: row;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        div {
+            margin-bottom: 10px;
+        }
+    }
 }

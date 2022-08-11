@@ -11,6 +11,7 @@ import { ReactComponent as Burger } from "./../../assets/icons/Burger.svg";
 import { ReactComponent as CloseBurger } from "./../../assets/icons/CloseBurger.svg";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import classNames from "classnames";
+import { CSSTransition } from "react-transition-group";
 const NavMenu = () => {
     const [params, setParams] = useSearchParams();
     const [text, setText] = useState<string | any>("");
@@ -29,26 +30,31 @@ const NavMenu = () => {
         setOpenBurger(!openBurger);
     };
     console.log();
-
+    const arrRender = [
+        {
+            text: "VOTING",
+            link: "/vote",
+            styles: styles.first
+        },
+        {
+            text: "BREEDS",
+            link: "/breeds",
+            styles: styles.second
+        },
+        {
+            text: "GALLERY",
+            link: "/gallery",
+            styles: styles.third
+        }
+    ];
+    const handleNavigate = (link: string) => {
+        navigate(link);
+    };
+    openBurger
+    ? (document.body.style.overflow = "hidden")
+    : (document.body.style.overflow = "visible");
     return (
         <div className={styles.root}>
-            {window.innerWidth < 768 && (
-                <>
-                    <ButtonIcon onClick={toggleBurger}>
-                        <Burger />
-                    </ButtonIcon>
-                    <div
-                        className={classNames(styles.hide, {
-                            [styles.open]: openBurger
-                        })}
-                    >
-                        <ButtonIcon onClick={toggleBurger}>
-                            <CloseBurger />
-                        </ButtonIcon>
-                    </div>
-                </>
-            )}
-
             <TextField
                 placeholder="Search for breeds by name"
                 className={
@@ -77,24 +83,71 @@ const NavMenu = () => {
                 }}
             />
             <div className={styles.wrapperIcons}>
-                <ButtonIcon
-                    onClick={() => navigate("/likes")}
-                    activeFav={location.pathname === "/likes"}
-                >
-                    <Like />
-                </ButtonIcon>
-                <ButtonIcon
-                    onClick={() => navigate("/favourites")}
-                    activeFav={location.pathname === "/favourites"}
-                >
-                    <Fav />
-                </ButtonIcon>
-                <ButtonIcon
-                    onClick={() => navigate("/dislikes")}
-                    activeFav={location.pathname === "/dislikes"}
-                >
-                    <Dislike />
-                </ButtonIcon>
+                {window.innerWidth < 768 && (
+                    <>
+                        <ButtonIcon onClick={toggleBurger}>
+                            <Burger />
+                        </ButtonIcon>
+                        <CSSTransition
+                            in={openBurger}
+                            timeout={500}
+                            transitionLeaveTimeout={3000000}
+                            classNames={{
+                                enter: styles.enter,
+                                enterActive: styles.enterActive,
+                                enterDone: styles.enterActive,
+                                exitActive: styles.exitActive,
+                                exitDone: styles.exitDone,
+                                exit: styles.exitDone
+                            }}
+                            mountOnEnter
+                            unmountOnExit
+                        >
+                            <div>
+                                <ButtonIcon onClick={toggleBurger}>
+                                    <CloseBurger />
+                                </ButtonIcon>
+                                <ul>
+                                    {arrRender.map((data, key) => (
+                                        <li key={key}>
+                                            <Button
+                                                active={
+                                                    data.link ===
+                                                    location.pathname
+                                                }
+                                                onClick={() =>
+                                                    handleNavigate(data.link)
+                                                }
+                                            >
+                                                {data.text}{" "}
+                                            </Button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </CSSTransition>
+                    </>
+                )}
+                <div className={styles.icons}>
+                    <ButtonIcon
+                        onClick={() => navigate("/likes")}
+                        activeFav={location.pathname === "/likes"}
+                    >
+                        <Like />
+                    </ButtonIcon>
+                    <ButtonIcon
+                        onClick={() => navigate("/favourites")}
+                        activeFav={location.pathname === "/favourites"}
+                    >
+                        <Fav />
+                    </ButtonIcon>
+                    <ButtonIcon
+                        onClick={() => navigate("/dislikes")}
+                        activeFav={location.pathname === "/dislikes"}
+                    >
+                        <Dislike />
+                    </ButtonIcon>
+                </div>
             </div>
         </div>
     );

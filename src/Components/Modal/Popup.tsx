@@ -115,8 +115,8 @@ const Popup: FC<Modal> = ({ modal, setModal }) => {
                         setImage({});
                         uploadData.reset();
                     }}
-                    size={40}
-                    radius={10}
+                    size={window.innerWidth < 760 ? 60 : 40}
+                    radius={window.innerWidth < 760 ? 20 : 10}
                     mr="0 0 0 auto"
                 >
                     <Close />
@@ -126,8 +126,8 @@ const Popup: FC<Modal> = ({ modal, setModal }) => {
                         Upload a .jpg or .png Cat Image
                     </Typography>
                     <Typography>
-                        Any uploads must comply with the upload guidelines or
-                        face deletion.
+                        Any uploads must comply with the{" "}
+                        <a href="">upload guidelines </a> or face deletion.
                     </Typography>
                     <div
                         className={styles.placeImage}

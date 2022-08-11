@@ -109,14 +109,14 @@ const GalleryShow = () => {
                             </select>
                         </div>
 
-                        <div style={{ display: "inline-flex" }}>
+                        <div className={styles.limitReload}>
                             <label htmlFor="">Limit</label>
-                            <div style={{ display: "flex",flexDirection:"row" }}>
+                            <div>
                                 <select
                                     value={limit}
                                     className={styles.selectMenu}
                                     onChange={(e) => setLimit(e.target.value)}
-                                    style={{ width:"77%",marginRight:"15px" }}
+                                   
                                 >
                                     <option value="5" selected>
                                         5 items per page

@@ -19,7 +19,7 @@ export const Button: FC<ButtonProps> = ({
     customStyle,
     active,
     disabled,
-    icon
+    icon,
 }) => {
     return (
         <button
