@@ -42,7 +42,8 @@ const Navigation: FC = () => {
     };
 
     return (
-        <Grid item lg={4} xs={12}>
+        
+        <Grid item>
             <Grid
                 container
                 flexDirection="column"

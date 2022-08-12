@@ -34,68 +34,72 @@
         box-shadow: none !important;
         padding: 20px;
         display: flex;
-        margin: 20px;
+        width: 100%;
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
     }
     .SideBlockGutter{
         padding-right: 0px;
+        padding: 20px;
     }
 }
 
 @include breakpoint(sm) {
     .Mainlayout {
+        display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        align-items: flex-start;
+        justify-content: flex-start;
         background:#F8F8F7;
         margin-top: 0;
+        width: 100%;
+      ;
     }
     .SideBlock {
         min-height: 90%;
         max-height: auto;
-        width: 100%;
         border-radius: 20px !important;
         box-shadow: none !important;
         padding: 20px;
         display: flex;
-        margin: 0px;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
+        
+        width: 100%;
+        // flex-direction: column;
+        // align-items: flex-start;
+        // justify-content: flex-start;
     }
     .SideBlockGutter{
         padding-right: 0px;
-        margin: 20px !important;
-        width: 100%;
-    }
-}
-@include breakpoint(md) {
-    .Mainlayout {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background:#F8F8F7;
-        margin-top: 0;
-    }
-    .SideBlock {
-        min-height: 90%;
-        max-height: auto;
-        width: 100%;
-        border-radius: 20px !important;
-        box-shadow: none !important;
         padding: 20px;
-        display: flex;
-        margin: 0px;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-    }
-    .SideBlockGutter{
-        padding-right: 0px;
-        margin: 20px !important;
         width: 100%;
     }
 }
 
+@include breakpoint(md) {
+    .Mainlayout {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        background:#F8F8F7;
+        margin-top: 0;
+        width: 100%;
+      ;
+    }
+    .SideBlock {
+        min-height: 90%;
+        max-height: auto;
+        border-radius: 20px !important;
+        box-shadow: none !important;
+        padding: 20px;
+        display: flex;
+        
+        width: 100%;
+    }
+    .SideBlockGutter{
+        padding-right: 0px;
+        padding: 20px;
+        width: 100%;
+    }
+}

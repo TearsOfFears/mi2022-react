@@ -27,6 +27,7 @@
 
 @include breakpoint(xs) {
     .root {
+        display: none;
         .mainWrapper {
             display: none;
             flex-direction: column;
@@ -58,7 +59,7 @@
 }
 @include breakpoint(lg) {
     .root {
-        width: 375px;
+        width: 350px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -77,7 +78,7 @@
             background-color: #fbe0dc;
             box-shadow: none;
             border-radius: 20px;
-            width: 520px;
+            width: 550px;
             height: 100vh;
             position: absolute;
             top: 30px;
@@ -87,7 +88,7 @@
     }
 }
 
-@include breakpoint(xl) {
+@include breakpoint(lg) {
     .root {
         width: 775px;
         display: flex;
@@ -105,8 +106,9 @@
             background-color: #fbe0dc;
             box-shadow: none;
             border-radius: 20px;
-            width: 680px;
-            height: 840px;
+            
+            width: calc(100% - 130px);
+            height: calc(100vh - 130px);
             position: absolute;
             top: 30px;
             right: 30px;
