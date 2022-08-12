@@ -4,19 +4,23 @@
             @content;
         }
     } @else if $class == sm {
-        @media screen and (max-width: 900px) and (min-width: 600px) {
+        @media screen and (min-width: 600px) and (max-width: 900px) {
             @content;
         }
     } @else if $class == md {
-        @media (min-width: 1200px) {
+        @media screen and (min-width: 900px) and (max-width: 1200px) {
             @content;
         }
     } @else if $class == lg {
-        @media (min-width: 1536px) {
+        @media (min-width: 1200px) {
+            @content;
+        }
+    } @else if $class == xl {
+        @media (min-width: 1500px) {
             @content;
         }
     } @else {
-        @warn "Breakpoint mixin supports: xs, sm, md, lg";
+        @warn "Breakpoint mixin supports: xs, sm, md, lg xl";
     }
 }
 

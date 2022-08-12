@@ -102,3 +102,21 @@
         width: 100%;
     }
 }
+
+@include breakpoint(sm) {
+    .button,
+    .active {
+        font-size: calc(10px + 9 * ((100vw - 600px) / (900 - 600)));
+        line-height: 1.1;
+    }
+ 
+}
+
+@include breakpoint(md) {
+    .button,
+    .active {
+        font-size: calc(15px + 9 * ((100vw - 900px) / (1200 - 900)));
+        line-height: 1.1;
+    }
+ 
+}

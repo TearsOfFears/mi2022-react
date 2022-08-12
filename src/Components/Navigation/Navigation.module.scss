@@ -148,23 +148,85 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-
+            justify-content: space-between;
             padding: 0;
             li {
-                margin-right: 20px;
-                width: 100%;
-                margin-bottom: 15px;
-                text-align: center;
-                &:nth-child(3){
-                    margin-right: 0px;
+
+                width: 30%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin-right: 0;
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 250px;
+                    width: 140px;
+                    border-radius: 20px;
+
+                    background-clip: padding-box;
+                    margin-bottom: 25px;
+                }
+            }
+        }
+   
+    }
+    .hide {
+        display: none !important;
+    }
+}
+
+@include breakpoint(md) {
+    .root {
+        width: 100%;
+        .fixed {
+            position: relative;
+            display: flex;
+            width: 100%;
+        }
+        .wrapperNav {
+            display: flex;
+            flex-direction: column;
+            align-items: fs;
+            justify-content: space-between;
+            margin: 0 auto;
+            height: 85vh;
+            padding: 20px;
+            // div {
+            //     width: 100%;
+            // }
+        }
+        .wrapperText {
+           margin-top: 50px;
+        }
+        ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            li {
+
+                width: 200px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin-right: 0;
+                &:nth-child(2){
+                    margin:0 30px;
                 }
                 div {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
-                    height: 200px;
-                    width: 140px;
+                    height: 250px;
+                    width: 200px;
                     border-radius: 20px;
 
                     background-clip: padding-box;

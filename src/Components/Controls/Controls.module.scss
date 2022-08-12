@@ -186,3 +186,135 @@ option {
         }
     }
 }
+
+@include breakpoint(sm) {
+    .rootCurrent {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        span {
+            border-radius: 10px;
+            background: #ff868e;
+            color: rgba(255, 255, 255, 1);
+            border: none;
+            letter-spacing: 2;
+            font-size: 20px;
+            padding: 10px;
+            width: 100px;
+            font-family: Jost;
+            font-size: 12px;
+            font-weight: 600;
+            height: 40px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.5s;
+            text-align: center;
+            margin-left: 10px;
+        }
+    }
+    .rootBreeds {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .wrapperOrder {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+            width: 50%;
+            button:nth-child(1) {
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+        }
+        div {
+            display: inline-flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+  
+    .rootGallery {
+        display: row;
+        flex-wrap: nowrap;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        div {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+@include breakpoint(md) {
+    .rootCurrent {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        span {
+            border-radius: 10px;
+            background: #ff868e;
+            color: rgba(255, 255, 255, 1);
+            border: none;
+            letter-spacing: 2;
+            font-size: 20px;
+            padding: 10px;
+            width: 100px;
+            font-family: Jost;
+            font-size: 12px;
+            font-weight: 600;
+            height: 40px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.5s;
+            text-align: center;
+            margin-left: 10px;
+        }
+    }
+    .rootBreeds {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .wrapperOrder {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+            width: 50%;
+            button:nth-child(1) {
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+        }
+        div {
+            display: inline-flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+  
+    .rootGallery {
+        display: row;
+        flex-wrap: nowrap;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        div {
+            margin-bottom: 0px;
+        }
+    }
+    .selectWrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 80%;
+        margin-left: 0px;
+    }
+}

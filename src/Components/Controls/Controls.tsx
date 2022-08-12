@@ -113,7 +113,6 @@ const Controls: FC<ControlsProps> = ({
                     <Button
                         fontWeight={600}
                         onClick={handleClick}
-                        
                         active={true}
                     >
                         {voting && "voting"}
@@ -146,22 +145,25 @@ const Controls: FC<ControlsProps> = ({
             )}
             {breedsCurrent && (
                 <div className={styles.rootCurrent}>
-                    <ButtonIcon
-                        size={40}
-                        radius={10}
-                        mr={"0px 10px 0px 0px "}
-                        bgColor={theme.palette.primary.light}
-                        onClick={() => navigate("/breeds")}
-                    >
-                        <BackArrow />
-                    </ButtonIcon>
-                    <Button
-                        fontWeight={600}
-                        onClick={handleClick}
-                        customStyle
-                    >
-                        breeds
-                    </Button>
+                    <div style={{display:"inline-flex"}}>
+                        <ButtonIcon
+                            size={40}
+                            radius={10}
+                            mr={"0px 10px 0px 0px "}
+                            bgColor={theme.palette.primary.light}
+                            onClick={() => navigate("/breeds")}
+                        >
+                            <BackArrow />
+                        </ButtonIcon>
+                        <Button
+                            fontWeight={600}
+                            onClick={handleClick}
+                            customStyle
+                        >
+                            breeds
+                        </Button>
+                    </div>
+
                     <span>{id}</span>
                 </div>
             )}
@@ -267,7 +269,6 @@ const Controls: FC<ControlsProps> = ({
                             fontWeight={600}
                             onClick={handleClick}
                             active={true}
-                         
                         >
                             GALLERY
                         </Button>

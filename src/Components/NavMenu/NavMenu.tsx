@@ -11,6 +11,9 @@ import { ReactComponent as Burger } from "./../../assets/icons/Burger.svg";
 import { ReactComponent as CloseBurger } from "./../../assets/icons/CloseBurger.svg";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import classNames from "classnames";
+import Vote from "./../../assets/img/vote-table.svg";
+import Breeds from "./../../assets/img/pet-breeds.svg";
+import Gallery from "./../../assets/img/images-search.svg";
 import { CSSTransition } from "react-transition-group";
 const NavMenu = () => {
     const [params, setParams] = useSearchParams();
@@ -34,16 +37,19 @@ const NavMenu = () => {
         {
             text: "VOTING",
             link: "/vote",
+            img: Vote,
             styles: styles.first
         },
         {
             text: "BREEDS",
             link: "/breeds",
+            img: Breeds,
             styles: styles.second
         },
         {
             text: "GALLERY",
             link: "/gallery",
+            img: Gallery,
             styles: styles.third
         }
     ];
@@ -123,83 +129,94 @@ const NavMenu = () => {
                 </>
             )}
             <div className={styles.wrapperIcons}>
-                {window.innerWidth < 900 && (
-                    <ButtonIcon onClick={toggleBurger}>
-                        <Burger />
-                    </ButtonIcon>
-                )}
+                <div className={styles.burgerSearch}>
+                    {window.innerWidth < 1200 && (
+                        <ButtonIcon onClick={toggleBurger} size={60}>
+                            <Burger />
+                        </ButtonIcon>
+                    )}
 
-                {window.innerWidth > 600 && window.innerWidth < 900 && (
-                    <>
-                        <CSSTransition
-                            in={openBurger}
-                            timeout={500}
-                            transitionLeaveTimeout={3000000}
-                            classNames={{
-                                enter: styles.enter,
-                                enterActive: styles.enterActive,
-                                enterDone: styles.enterActive,
-                                exitActive: styles.exitActive,
-                                exitDone: styles.exitDone,
-                                exit: styles.exitDone
-                            }}
-                            mountOnEnter
-                            unmountOnExit
-                        >
-                            <div>
-                                <ButtonIcon onClick={toggleBurger}>
-                                    <CloseBurger />
-                                </ButtonIcon>
-                                <ul>
-                                    {arrRender.map((data, key) => (
-                                        <li key={key}>
-                                            <Button
-                                                active={
-                                                    data.link ===
-                                                    location.pathname
-                                                }
-                                                onClick={() =>
-                                                    handleNavigate(data.link)
-                                                }
-                                            >
-                                                {data.text}{" "}
-                                            </Button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </CSSTransition>
-                        <TextField
-                            placeholder="Search for breeds by name"
-                            className={
-                                text?.length > 0
-                                    ? styles.activeBorder
-                                    : styles.textField
-                            }
-                            variant="standard"
-                            value={text}
-                            onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>
-                            ) => setText(e.target.value)}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment
-                                        position="end"
-                                        className={styles.InputAdornment}
-                                    >
-                                        <button
-                                            className={styles.iconButton}
-                                            onClick={() => handleSearch()}
+                    {window.innerWidth > 600 && window.innerWidth < 1200 && (
+                        <>
+                            <CSSTransition
+                                in={openBurger}
+                                timeout={500}
+                                transitionLeaveTimeout={3000000}
+                                classNames={{
+                                    enter: styles.enter,
+                                    enterActive: styles.enterActive,
+                                    enterDone: styles.enterActive,
+                                    exitActive: styles.exitActive,
+                                    exitDone: styles.exitDone,
+                                    exit: styles.exitDone
+                                }}
+                                mountOnEnter
+                                unmountOnExit
+                            >
+                                <div>
+                                    <ButtonIcon onClick={toggleBurger}>
+                                        <CloseBurger />
+                                    </ButtonIcon>
+                                    <div>
+                                        <ul>
+                                            {arrRender.map((data, key) => (
+                                                <li key={key}>
+                                                    <div
+                                                        className={data.styles}
+                                                    >
+                                                        <img src={data.img} />
+                                                    </div>
+                                                    <Button
+                                                        active={
+                                                            data.link ===
+                                                            location.pathname
+                                                        }
+                                                        onClick={() =>
+                                                            handleNavigate(
+                                                                data.link
+                                                            )
+                                                        }
+                                                    >
+                                                        {data.text}{" "}
+                                                    </Button>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </CSSTransition>
+                            <TextField
+                                placeholder="Search for breeds by name"
+                                className={
+                                    text?.length > 0
+                                        ? styles.activeBorder
+                                        : styles.textField
+                                }
+                                variant="standard"
+                                value={text}
+                                onChange={(
+                                    e: React.ChangeEvent<HTMLInputElement>
+                                ) => setText(e.target.value)}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment
+                                            position="end"
+                                            className={styles.InputAdornment}
                                         >
-                                            <SearchIcon />
-                                        </button>
-                                    </InputAdornment>
-                                ),
-                                disableUnderline: true
-                            }}
-                        />
-                    </>
-                )}
+                                            <button
+                                                className={styles.iconButton}
+                                                onClick={() => handleSearch()}
+                                            >
+                                                <SearchIcon />
+                                            </button>
+                                        </InputAdornment>
+                                    ),
+                                    disableUnderline: true
+                                }}
+                            />
+                        </>
+                    )}
+                </div>
                 <div className={styles.icons}>
                     <ButtonIcon
                         onClick={() => navigate("/likes")}

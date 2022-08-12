@@ -122,7 +122,12 @@ const Vote = () => {
                             <h1>loading...</h1>
                         )}
                     </Grid>
-                    <Grid item xs={12} marginTop="15px"  style={{ width: "100%" }}>
+                    <Grid
+                        item
+                        xs={12}
+                        marginTop="15px"
+                        style={{ width: "100%" }}
+                    >
                         {!getVotes.isLoading && !getFav.isLoading ? (
                             getVotes.data
                                 .concat(getFav.data)
@@ -138,8 +143,12 @@ const Vote = () => {
                                             key={key}
                                             className={styles.history}
                                         >
-                                            {window.innerWidth < 768 && (
-                                                <div className={styles.mobileWrapper}>
+                                            {window.innerWidth < 600 ? (
+                                                <div
+                                                    className={
+                                                        styles.mobileWrapper
+                                                    }
+                                                >
                                                     <span
                                                         className={styles.time}
                                                     >
@@ -169,6 +178,12 @@ const Vote = () => {
                                                     {typeof data.value ===
                                                         "undefined" && <Fav />}
                                                 </div>
+                                            ) : (
+                                                <span className={styles.time}>
+                                                    {moment(
+                                                        data?.created_at
+                                                    ).format("HH:mm")}
+                                                </span>
                                             )}
                                             <Typography variant="h5">
                                                 Image ID:{" "}
@@ -185,7 +200,7 @@ const Vote = () => {
                                                     <>Favourites</>
                                                 )}
                                             </Typography>
-                                            {window.innerWidth > 768 && (
+                                            {window.innerWidth > 600 && (
                                                 <>
                                                     {data?.value === 1 && (
                                                         <>

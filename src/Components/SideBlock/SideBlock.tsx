@@ -7,6 +7,7 @@ const SideBlock: FC = () => {
         <Grid
             item
             xs={6}
+            lg={7}
             justifyContent="flex-end"
             marginRight={0}
             paddingRight={0}

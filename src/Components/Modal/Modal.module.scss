@@ -251,3 +251,79 @@
         }
     }
 }
+
+@include breakpoint(sm) {
+    .show {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        position: absolute;
+        border-radius: 0px;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        opacity: 1;
+
+        .wrapperAddImage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+    
+            .placeImage {
+                width: 100%;
+                height: 420px;
+                margin-top: 20px;
+                margin-bottom: 0;
+                .imageSelected {
+                    width: 95%;
+                    height: 400px;
+
+                }
+             
+            }
+        }
+    }
+}
+
+@include breakpoint(md) {
+    .show {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        position: absolute;
+        border-radius: 0px;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        opacity: 1;
+
+        .wrapperAddImage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+    
+            .placeImage {
+                width: 100%;
+                height: 520px;
+                margin-top: 20px;
+                margin-bottom: 0;
+                .imageSelected {
+                    width: 95%;
+                    height: 500px;
+
+                }
+             
+            }
+        }
+    }
+}
