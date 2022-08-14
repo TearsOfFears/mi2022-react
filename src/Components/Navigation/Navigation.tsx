@@ -42,8 +42,12 @@ const Navigation: FC = () => {
     };
 
     return (
-        
-        <Grid item style={window.innerWidth<1200 ? {width:"100%"}: {width:"auto"}}>
+        <Grid
+            item
+            style={
+                window.innerWidth < 1200 ? { width: "100%" } : { width: "auto" }
+            }
+        >
             <Grid
                 container
                 flexDirection="column"

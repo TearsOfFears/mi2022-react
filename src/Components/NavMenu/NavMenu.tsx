@@ -2,6 +2,7 @@ import { IconButton, Input, InputAdornment, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import styles from "./NavMenu.module.scss";
+import stylesPortal from "./../../Components/Portal/Portal.module.scss";
 import { ReactComponent as SearchIcon } from "./../../assets/icons/search.svg";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import { ReactComponent as Fav } from "./../../assets/icons/fav.svg";
@@ -15,6 +16,7 @@ import Vote from "./../../assets/img/vote-table.svg";
 import Breeds from "./../../assets/img/pet-breeds.svg";
 import Gallery from "./../../assets/img/images-search.svg";
 import { CSSTransition } from "react-transition-group";
+import PortalModal from "./../Portal/PortalModal";
 const NavMenu = () => {
     const [params, setParams] = useSearchParams();
     const [text, setText] = useState<string | any>("");
@@ -38,19 +40,19 @@ const NavMenu = () => {
             text: "VOTING",
             link: "/vote",
             img: Vote,
-            styles: styles.first
+            styles: stylesPortal.first
         },
         {
             text: "BREEDS",
             link: "/breeds",
             img: Breeds,
-            styles: styles.second
+            styles: stylesPortal.second
         },
         {
             text: "GALLERY",
             link: "/gallery",
             img: Gallery,
-            styles: styles.third
+            styles: stylesPortal.third
         }
     ];
     const handleNavigate = (link: string) => {
@@ -89,43 +91,25 @@ const NavMenu = () => {
                             disableUnderline: true
                         }}
                     />
-                    <CSSTransition
-                        in={openBurger}
-                        timeout={500}
-                        transitionLeaveTimeout={3000000}
-                        classNames={{
-                            enter: styles.enter,
-                            enterActive: styles.enterActive,
-                            enterDone: styles.enterActive,
-                            exitActive: styles.exitActive,
-                            exitDone: styles.exitDone,
-                            exit: styles.exitDone
-                        }}
-                        mountOnEnter
-                        unmountOnExit
+                    <PortalModal
+                        toggleBurger={toggleBurger}
+                        openBurger={openBurger}
                     >
-                        <div>
-                            <ButtonIcon onClick={toggleBurger}>
-                                <CloseBurger />
-                            </ButtonIcon>
-                            <ul>
-                                {arrRender.map((data, key) => (
-                                    <li key={key}>
-                                        <Button
-                                            active={
-                                                data.link === location.pathname
-                                            }
-                                            onClick={() =>
-                                                handleNavigate(data.link)
-                                            }
-                                        >
-                                            {data.text}{" "}
-                                        </Button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </CSSTransition>
+                        <ul>
+                            {arrRender.map((data, key) => (
+                                <li key={key}>
+                                    <Button
+                                        active={data.link === location.pathname}
+                                        onClick={() =>
+                                            handleNavigate(data.link)
+                                        }
+                                    >
+                                        {data.text}{" "}
+                                    </Button>
+                                </li>
+                            ))}
+                        </ul>
+                    </PortalModal>
                 </>
             )}
             <div className={styles.wrapperIcons}>
@@ -138,53 +122,31 @@ const NavMenu = () => {
 
                     {window.innerWidth > 600 && window.innerWidth < 1200 && (
                         <>
-                            <CSSTransition
-                                in={openBurger}
-                                timeout={500}
-                                transitionLeaveTimeout={3000000}
-                                classNames={{
-                                    enter: styles.enter,
-                                    enterActive: styles.enterActive,
-                                    enterDone: styles.enterActive,
-                                    exitActive: styles.exitActive,
-                                    exitDone: styles.exitDone,
-                                    exit: styles.exitDone
-                                }}
-                                mountOnEnter
-                                unmountOnExit
+                            <PortalModal
+                                toggleBurger={toggleBurger}
+                                openBurger={openBurger}
                             >
-                                <div>
-                                    <ButtonIcon onClick={toggleBurger}>
-                                        <CloseBurger />
-                                    </ButtonIcon>
-                                    <div>
-                                        <ul>
-                                            {arrRender.map((data, key) => (
-                                                <li key={key}>
-                                                    <div
-                                                        className={data.styles}
-                                                    >
-                                                        <img src={data.img} />
-                                                    </div>
-                                                    <Button
-                                                        active={
-                                                            data.link ===
-                                                            location.pathname
-                                                        }
-                                                        onClick={() =>
-                                                            handleNavigate(
-                                                                data.link
-                                                            )
-                                                        }
-                                                    >
-                                                        {data.text}{" "}
-                                                    </Button>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </CSSTransition>
+                                <ul>
+                                    {arrRender.map((data, key) => (
+                                        <li key={key}>
+                                            <div className={data.styles}>
+                                                <img src={data.img} />
+                                            </div>
+                                            <Button
+                                                active={
+                                                    data.link ===
+                                                    location.pathname
+                                                }
+                                                onClick={() =>
+                                                    handleNavigate(data.link)
+                                                }
+                                            >
+                                                {data.text}{" "}
+                                            </Button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </PortalModal>
                             <TextField
                                 placeholder="Search for breeds by name"
                                 className={
