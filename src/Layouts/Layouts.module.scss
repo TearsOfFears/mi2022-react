@@ -22,10 +22,11 @@
 @include breakpoint(xs) {
     .Mainlayout {
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        align-items: flex-start;
+        justify-content: flex-start;
         background:#F8F8F7;
         margin-top: 0;
+        width: 100%;
     }
     .SideBlock {
         min-height: 90%;
@@ -42,6 +43,7 @@
     .SideBlockGutter{
         padding-right: 0px;
         padding: 20px;
+        width: 100%;
     }
 }
 
