@@ -120,7 +120,7 @@ const NavMenu = () => {
                         </ButtonIcon>
                     )}
 
-                    {window.innerWidth > 600 && window.innerWidth < 1200 && (
+                    {window.innerWidth > 600 && window.innerWidth < 1536 ? (
                         <>
                             <PortalModal
                                 toggleBurger={toggleBurger}
@@ -177,6 +177,39 @@ const NavMenu = () => {
                                 }}
                             />
                         </>
+                    ) : (
+                        window.innerWidth >600 && (
+                            <TextField
+                            placeholder="Search for breeds by name"
+                            className={
+                                text?.length > 0
+                                    ? styles.activeBorder
+                                    : styles.textField
+                            }
+                            variant="standard"
+                            value={text}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => setText(e.target.value)}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment
+                                        position="end"
+                                        className={styles.InputAdornment}
+                                    >
+                                        <button
+                                            className={styles.iconButton}
+                                            onClick={() => handleSearch()}
+                                        >
+                                            <SearchIcon />
+                                        </button>
+                                    </InputAdornment>
+                                ),
+                                disableUnderline: true
+                            }}
+                        />
+                        )
+                      
                     )}
                 </div>
                 <div className={styles.icons}>

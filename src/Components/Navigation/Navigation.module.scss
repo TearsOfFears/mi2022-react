@@ -205,8 +205,8 @@
             list-style-type: none;
             display: flex;
             flex-direction: row;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start;
+            justify-content: flex-start;
             padding: 0;
             li {
 
@@ -217,7 +217,7 @@
                 justify-content: center;
                 margin-right: 0;
                 &:nth-child(2){
-                    margin:0 30px;
+                    margin:0px 20px;
                 }
                 div {
                     display: flex;
@@ -253,8 +253,11 @@
             flex-direction: column;
             justify-content: space-between;
             margin: 0 auto;
-            height: auto;
+            height: 85vh;
             padding: 20px;
+            // div {
+            //     width: 100%;
+            // }
         }
         .wrapperText {
            margin-top: 50px;
@@ -263,8 +266,8 @@
             list-style-type: none;
             display: flex;
             flex-direction: row;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start;
+            justify-content: flex-start;
             padding: 0;
             li {
 
@@ -292,5 +295,8 @@
             }
         }
    
+    }
+    .hide {
+        display: none !important;
     }
 }

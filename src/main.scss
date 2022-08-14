@@ -12,11 +12,11 @@
             @content;
         }
     } @else if $class == lg {
-        @media (min-width: 1200px) and (max-width: 1500px){
+        @media (min-width: 1200px) and (max-width: 1536px){
             @content;
         }
     } @else if $class == xl {
-        @media (min-width: 1500px) {
+        @media (min-width: 1536px) {
             @content;
         }
     } @else {

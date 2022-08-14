@@ -2,7 +2,6 @@ import { Grid, Typography } from "@mui/material";
 import React, { FC } from "react";
 import Logo from "./../../assets/img/Logo.svg";
 import { IUser } from "../../types/types";
-import UserItem from "../UserItem";
 import { Container } from "@mui/system";
 import Vote from "./../../assets/img/vote-table.svg";
 import Breeds from "./../../assets/img/pet-breeds.svg";
@@ -10,9 +9,7 @@ import Gallery from "./../../assets/img/images-search.svg";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from "./Navigation.module.scss";
 import { Button } from "../Button/Button";
-// interface UserListProps{
-//     users:IUser[]
-// }
+
 import classNames from "classnames";
 const Navigation: FC = () => {
     const navigate = useNavigate();
@@ -44,8 +41,9 @@ const Navigation: FC = () => {
     return (
         <Grid
             item
+            xl={4}
             style={
-                window.innerWidth < 1200 ? { width: "100%" } : { width: "auto" }
+                window.innerWidth < 1536 ? { width: "100%" } : { width: "auto" }
             }
         >
             <Grid

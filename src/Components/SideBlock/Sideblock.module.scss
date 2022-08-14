@@ -59,36 +59,16 @@
 }
 @include breakpoint(lg) {
     .root {
-        width: 350px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-
         .mainWrapper {
-            display: flex;
-            flex-direction: column;
+            display: none;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
-            img {
-                width: 80%;
-            }
-        }
-        .wrapper {
-            background-color: #fbe0dc;
-            box-shadow: none;
-            border-radius: 20px;
-            width: 550px;
-            height: 100vh;
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            z-index: -1;
         }
     }
 }
 
-@include breakpoint(lg) {
+@include breakpoint(xl) {
     .root {
         width: 775px;
         display: flex;

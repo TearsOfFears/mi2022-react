@@ -9,7 +9,7 @@ export const SideBlockLayout: FC<{ children: React.ReactElement }> = ({
     children
 }) => {
     return (
-        <Grid  item className={styles.SideBlockGutter}>
+        <Grid  item className={styles.SideBlockGutter}  xl={6}>
             <NavMenu />
             <Paper className={styles.SideBlock}>{children}</Paper>
         </Grid>
