@@ -114,7 +114,7 @@ const NavMenu = () => {
             )}
             <div className={styles.wrapperIcons}>
                 <div className={styles.burgerSearch}>
-                    {window.innerWidth < 1200 && (
+                    {window.innerWidth < 1535 && (
                         <ButtonIcon onClick={toggleBurger} size={60}>
                             <Burger />
                         </ButtonIcon>

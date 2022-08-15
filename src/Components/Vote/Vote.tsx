@@ -15,6 +15,7 @@ import { ReactComponent as Like } from "./../../assets/icons/like.svg";
 import { ReactComponent as Dislike } from "./../../assets/icons/dislike.svg";
 import moment from "moment";
 import cx from "classnames";
+import Loader from "../Loader";
 interface RandomCat {
     id?: string;
     url?: string;
@@ -119,7 +120,7 @@ const Vote = () => {
                                 </div>
                             </div>
                         ) : (
-                            <h1>loading...</h1>
+                           <Loader/>
                         )}
                     </Grid>
                     <Grid
@@ -228,7 +229,7 @@ const Vote = () => {
                                     );
                                 })
                         ) : (
-                            <h1>loading...</h1>
+                            <Loader/>
                         )}
                     </Grid>
                 </Grid>

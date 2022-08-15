@@ -130,3 +130,43 @@ ul {
         border: 5px solid rgba(255, 210, 128, 0.6);
     }
 }
+
+@include breakpoint(lg) {
+    
+    ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        li {
+            margin-right: 20px;
+            width: 250px;
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 260px;
+              
+                border-radius: 20px;
+
+                background-clip: padding-box;
+                margin-bottom: 25px;
+            }
+        }
+    }
+    .first {
+        background-color: #b4b7ff;
+        border: 5px solid rgba(180, 183, 255, 0.6);
+    }
+    .second {
+        background-color: #97eab9;
+        border: 5px solid rgba(151, 234, 185, 0.6);
+    }
+    .third {
+        background-color: #ffd280;
+        border: 5px solid rgba(255, 210, 128, 0.6);
+    }
+}

@@ -87,8 +87,8 @@
             box-shadow: none;
             border-radius: 20px;
             
-            width: calc(100% - 130px);
-            height: calc(100vh - 130px);
+            min-width:400px;
+          
             position: absolute;
             top: 30px;
             right: 30px;
